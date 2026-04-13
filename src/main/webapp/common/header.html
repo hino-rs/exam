@@ -1,0 +1,23 @@
+<header style="background-color: #eee; padding: 10px;">
+
+    <h1>得点管理システム</h1>
+
+    <!--ログイン後のみ表示する -->
+    <c:if test="${not empty sessionScope.loginUser}">
+        <div style="margin-top: 10px;">
+
+            <!-- ログインユーザ名 -->
+            <span>${sessionScope.loginUser} 様</span>
+
+            <!-- ログアウト -->
+            <a href="/Logout.action" style="margin-left: 20px;">
+                ログアウト
+            </a>
+
+        </div>
+    </c:if>
+
+</header>
+
+<hr>
+
