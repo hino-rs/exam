@@ -10,7 +10,7 @@ import java.util.List;
 import bean.School;
 import bean.Student;
 
-public class StudentDAO extends DAO {
+public class StudentDao extends DAO {
 	private String baseSql = "SELECT * FROM student WHERE school_cd=? ";
 	
 	private List<Student> postFilter(ResultSet rSet, School school) throws Exception {
