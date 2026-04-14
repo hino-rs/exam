@@ -11,6 +11,6 @@ public class MenuAction extends Action {
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 		System.out.println("hello MenuAction");
-		request.getRequestDispatcher("mennu.jsp").forward(request, response);
+		request.getRequestDispatcher("menu.jsp").forward(request, response);
 	}
 }

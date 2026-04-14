@@ -19,7 +19,7 @@
     <div style="display: flex;">
 
         <!-- サイドバー -->
-        <%@ include file="/sidebar.jsp" %>
+        <%@ include file="../scoremanager/sidebar.jsp" %>
 
         <!-- メインコンテンツ -->
         <main style="flex: 1; padding: 20px;">
