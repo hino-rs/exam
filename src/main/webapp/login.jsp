@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ include file="/header.html" %>
+<%@ include file="/common/header.html" %>
 
 <h2>ログイン</h2>
 
@@ -18,6 +18,6 @@
     <p><input type="submit" value="ログイン"></p>
 </form>
 
-<%@ include file="/footer.html" %>
+<%@ include file="/common/footer.html" %>
 
 

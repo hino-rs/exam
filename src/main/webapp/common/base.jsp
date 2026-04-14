@@ -5,7 +5,7 @@
 <head>
     <title>${param.title}</title>
 
-    <!-- Bootstrap（必要なら） -->
+    <!-- Bootstrap  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     ${param.scripts}
@@ -13,10 +13,9 @@
 
 <body>
 
-    <!-- ▼ 共通ヘッダー -->
-    <%@ include file="/header.html" %>
+    <%@ include file="/common/header.html" %>
 
-    <!-- ▼ レイアウト（サイドバー + メインコンテンツ） -->
+    <!-- レイアウト（サイドバー + メインコンテンツ） -->
     <div style="display: flex;">
 
         <!-- サイドバー -->
@@ -29,8 +28,7 @@
 
     </div>
 
-    <!-- ▼ 共通フッター -->
-    <%@ include file="/footer.html" %>
+    <%@ include file="/common/footer.html" %>
 
 </body>
 </html>
