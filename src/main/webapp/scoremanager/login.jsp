@@ -24,7 +24,7 @@
             </ul>
         </c:if>
 
-        <form action="Login.action" method="post">
+        <form action="LoginExecute.action" method="post">
 
             <!-- ID -->
             <div style="margin-bottom: 15px;">
