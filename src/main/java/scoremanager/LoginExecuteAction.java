@@ -1,6 +1,5 @@
 package scoremanager;
 
-import action.MenuAction;
 import bean.Teacher;
 import dao.TeacherDao;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,9 +28,9 @@ public class LoginExecuteAction extends Action {
 			System.out.println("ログイン成功");
 
 			Teacher teacher = (Teacher)loginData;
-			session.setAttribute("teacher", teacher);
+			session.setAttribute("loginUser", teacher.getName());
 
-			MenuAction menu = new action.MenuAction();
+			MenuAction menu = new MenuAction();
 			menu.execute(request, response);
 		} else {
 			System.out.println("ログイン失敗");

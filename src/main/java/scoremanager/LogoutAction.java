@@ -1,4 +1,4 @@
-package auth;
+package scoremanager;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,13 +11,8 @@ public class LogoutAction extends Action {
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 		HttpSession session=request.getSession();
+		session.removeAttribute("loginUser");
 
-		if (session.getAttribute("customer")!=null) {
-			session.removeAttribute("customer");
-			request.getRequestDispatcher("logout-out.jsp").forward(request, response);
-			return;
-		}
-
-		request.getRequestDispatcher("logout-error.jsp").forward(request, response);
+		request.getRequestDispatcher("logout.jsp").forward(request, response);
 	}
 }
