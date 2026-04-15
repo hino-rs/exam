@@ -15,7 +15,7 @@ public class TeacherDao extends DAO {
 		
 		PreparedStatement st;
 		st = con.prepareStatement("SELECT * FROM teacher WHERE id=? AND password=?");
-		st.setString(1, password);
+		st.setString(1, id);
 		st.setString(2, password);
 		ResultSet rs = st.executeQuery();
 		

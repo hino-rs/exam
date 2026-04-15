@@ -25,7 +25,7 @@ public class LoginExecuteAction extends Action {
 		TeacherDao dao = new TeacherDao();
 		Object loginData = dao.login(id, password);
 
-		if (loginData == null) {
+		if (loginData != null) {
 			System.out.println("ログイン成功");
 
 			Teacher teacher = (Teacher)loginData;
