@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-<%@ include file="/common/header.html" %>
+<%@ include file="/common/header.jsp" %>
 
 
 <h2>学生登録情報</h2>
@@ -40,4 +40,4 @@
 
 <a href="student_list.jsp">戻る</a>
 
-<%@ include file="/common/footer.html" %>
+<%@ include file="/common/footer.jsp" %>
