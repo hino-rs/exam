@@ -16,17 +16,18 @@ public class SubjectListAction extends Action {
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
-		HttpSession session = req.getSession();
+		System.out.println(">> SubjectListAction");
 		
+		HttpSession session = req.getSession();
 		School loginUserSchool = (School)session.getAttribute("loginUserSchool");
-		System.out.println("ログイン中ユーザーの学校コード: "+loginUserSchool.getCd());		
+		
+		tool.Logger.info("ログイン中ユーザーの所属学校コード: "+loginUserSchool.getCd());		
 		
 		List<Subject> subjects = null;
 		
 		SubjectDao sDao = new SubjectDao();
 		subjects = sDao.filter(loginUserSchool);
 		req.setAttribute("subjects", subjects);
-		System.out.println("subjects: "+subjects);
 		
 		req.getRequestDispatcher("subject-list.jsp").forward(req, res);
 	}
