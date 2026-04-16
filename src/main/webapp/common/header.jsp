@@ -14,7 +14,7 @@
             <span>${sessionScope.loginUser} 様</span>
 
             <!-- ログアウトリンク -->
-            <a href="/exam/Logout.action" style="margin-left: 20px; color: blue;">
+            <a href="/exam/scoremanager/Logout.action" style="margin-left: 20px; color: blue;">
                 ログアウト
             </a>
 
