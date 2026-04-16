@@ -1,34 +1,61 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-    <title>${param.title}</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap  -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+    crossorigin="anonymous">
 
-    ${param.scripts}
+<title>${param.title}</title>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+${param.scripts}
 </head>
 
 <body>
+<div id="wrapper" class="container">
 
-    <%@ include file="/common/header.html" %>
+    <header class="d-flex justify-content-between align-items-center py-3 px-5 mb-4 border-bottom border-2"
+        style="background-color: #e0f0ff;">
+        <c:import url="/common/header.jsp" />
+    </header>
 
-    <!-- レイアウト（サイドバー + メインコンテンツ） -->
-    <div style="display: flex;">
+    <div class="row justify-content-center">
 
-        <!-- サイドバー -->
-        <%@ include file="../scoremanager/sidebar.jsp" %>
+        <c:choose>
 
-        <!-- メインコンテンツ -->
-        <main style="flex: 1; padding: 20px;">
-            ${param.content}
-        </main>
+            <c:when test="${not empty sessionScope.teacher}">
+                <nav class="col-3" style="height:40rem;">
+                    <c:import url="/common/navigation.jsp" />
+                </nav>
+
+                <main class="col-9 border-start">
+                    ${param.content}
+                </main>
+            </c:when>
+
+            <c:otherwise>
+                <main class="col-8">
+                    ${param.content}
+                </main>
+            </c:otherwise>
+
+        </c:choose>
 
     </div>
 
-    <%@ include file="/common/footer.html" %>
+    <footer class="py-2 my-4 align-bottom">
+    <c:import url="/common/footer.jsp" />
+	</footer>
 
+
+</div>
 </body>
 </html>

@@ -1,82 +1,65 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ include file="/common/header.html" %>
 
-<div style="display: flex; justify-content: center; margin-top: 40px;">
+<jsp:include page="/common/base.jsp">
+    <jsp:param name="title" value="ログイン" />
 
-    <!-- ログインボックス -->
-    <div style="
-        width: 350px;
-        background: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    ">
+    <jsp:param name="content" value="
+        <!-- ログインカード（横長 1.5倍） -->
+        <div class='card shadow-sm' style='max-width: 600px; margin: 40px auto; padding: 0;'>
 
-        <h2 style="text-align: center; margin-bottom: 20px;">ログイン</h2>
-
-        <!-- エラー表示 -->
-        <c:if test="${not empty errors}">
-            <ul style="color: red;">
-                <c:forEach var="e" items="${errors}">
-                    <li>${e}</li>
-                </c:forEach>
-            </ul>
-        </c:if>
-
-        <form action="LoginExecute.action" method="post">
-
-            <!-- ID -->
-            <div style="margin-bottom: 15px;">
-                <label>ID</label><br>
-                <input type="text" name="id" value="${id}" required
-                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <!-- タイトル部分（薄いグレー帯） -->
+            <div style='background-color: #f0f0f0; padding: 15px;'>
+                <h2 class='text-center m-0'>ログイン</h2>
             </div>
 
-            <!-- パスワード -->
-            <div style="margin-bottom: 10px;">
-                <label>パスワード</label><br>
-                <input type="password" id="password" name="password" required
-                    style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+            <!-- 本文部分 -->
+            <div class='p-4'>
+
+                <!-- エラー表示 -->
+                <c:if test='${not empty errors}'>
+                    <p class='text-danger text-center mb-3'>${errors}</p>
+                </c:if>
+
+                <form action='LoginExecute.action' method='post'>
+
+                    <!-- ID（入力欄の左上に表示：floating label） -->
+                    <div class='form-floating mb-3'>
+                        <input type='text' name='id' value='${id}'
+                               class='form-control'
+                               style='background-color: #e8f4ff;'
+                               id='idInput'
+                               required maxlength='30'>
+                        <label for='idInput' style='font-size: 0.85rem;'>ID</label>
+                    </div>
+
+                    <div class='form-floating mb-3'>
+                        <input type='password' name='password'
+                               class='form-control'
+                               style='background-color: #e8f4ff;'
+                               id='passwordInput'
+                               required maxlength='30'>
+                        <label for='passwordInput' style='font-size: 0.85rem;'>パスワード</label>
+                    </div>
+
+                    <!-- パスワード表示チェック（中央配置） -->
+                    <div class='mb-3' style='text-align: center;'>
+                        <input type='checkbox' id='showPassword' class='form-check-input'>
+                        <label for='showPassword' class='form-check-label'>パスワードを表示</label>
+                    </div>
+
+                    <!-- ログインボタン -->
+                    <button type='submit' class='btn btn-primary w-100'>ログイン</button>
+
+                </form>
             </div>
+        </div>
 
-            <!-- パスワード表示チェック -->
-            <div style="margin-bottom: 20px;">
-                <label>
-                    <input type="checkbox" id="showPassword">
-                    パスワードを表示
-                </label>
-            </div>
-
-            <!-- ログインボタン -->
-            <div style="text-align: center;">
-                <input type="submit" value="ログイン"
-                    style="
-                        width: 100%;
-                        padding: 10px;
-                        background-color: #0d6efd;
-                        color: white;
-                        border: none;
-                        border-radius: 4px;
-                        font-size: 16px;
-                        cursor: pointer;
-                    ">
-            </div>
-
-        </form>
-    </div>
-</div>
-
-<script>
-    // パスワード表示 / 非表示
-    document.getElementById("showPassword").addEventListener("change", function() {
-        const pw = document.getElementById("password");
-        pw.type = this.checked ? "text" : "password";
-    });
-</script>
-
-<%@ include file="/common/footer.html" %>
-
-
-
-
+        <!-- パスワード表示スクリプト -->
+        <script>
+            document.getElementById('showPassword').addEventListener('change', function() {
+                const pw = document.getElementById('passwordInput');
+                pw.type = this.checked ? 'text' : 'password';
+            });
+        </script>
+    " />
+</jsp:include>
