@@ -28,7 +28,9 @@ public class LoginExecuteAction extends Action {
 			System.out.println("ログイン成功");
 
 			Teacher teacher = (Teacher)loginData;
-			session.setAttribute("loginUser", teacher.getName());
+			session.setAttribute("loginUser", teacher);
+			session.setAttribute("loginUserName", teacher.getName());
+			session.setAttribute("loginUserSchool", teacher.getSchool());
 
 			MenuAction menu = new MenuAction();
 			menu.execute(request, response);

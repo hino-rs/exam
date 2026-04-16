@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import bean.School;
 import bean.Teacher;
 
 public class TeacherDao extends DAO {
@@ -12,6 +11,7 @@ public class TeacherDao extends DAO {
 		Teacher teacher = null;
 		
 		Connection con = getConnection();
+		SchoolDao schoolDao = new SchoolDao();
 		
 		PreparedStatement st;
 		st = con.prepareStatement("SELECT * FROM teacher WHERE id=? AND password=?");
@@ -19,13 +19,17 @@ public class TeacherDao extends DAO {
 		st.setString(2, password);
 		ResultSet rs = st.executeQuery();
 		
-		while (rs.next()) {
-			teacher = new Teacher();
-			teacher.setId(rs.getString("id"));
-			teacher.setName(rs.getString("name"));
-			teacher.setPassword(rs.getString("password"));
-			teacher.setSchool(new School());
-		}
+		if (rs.next()) {
+	        teacher = new Teacher();
+	        teacher.setId(rs.getString("id"));
+	        teacher.setPassword(rs.getString("password"));
+	        teacher.setName(rs.getString("name"));
+	        teacher.setSchool(schoolDao.get(rs.getString("school_cd")));
+	        
+	        System.out.println(teacher.getSchool().getCd());
+	    }
+		
+		System.out.println(teacher.getSchool().getCd());
 		
 		st.close();
 		con.close();
