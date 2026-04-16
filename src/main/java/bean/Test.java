@@ -2,40 +2,54 @@ package bean;
 
 import java.io.Serializable;
 
+import javax.security.auth.Subject;
+
 public class Test implements Serializable {
 
-    private String studentNo; // 学生番号
-    private String subjectCd; // 科目コード
-    private String schoolCd;  // 学校コード
-    private int no;           // 回数
-    private int point;        // 得点
-    private String classNum;  // クラス番号
+    private Student student;   // 学生オブジェクト
+    private String classNum;   // クラス番号
+    private Subject subject;   // 科目オブジェクト
+    private School school;     // 学校オブジェクト
+    private int no;            // 回数
+    private int point;         // 得点
 
- // 学生番号
-    public String getStudentNo() {
-        return studentNo;
-    }
-
-    public void setStudentNo(String studentNo) {
-        this.studentNo = studentNo;
-    }
- // 科目コード
-    public String getSubjectCd() {
-        return subjectCd;
+    // 学生
+    public Student getStudent() {
+        return student;
     }
 
-    public void setSubjectCd(String subjectCd) {
-        this.subjectCd = subjectCd;
-    }
- // 学校コード
-    public String getSchoolCd() {
-        return schoolCd;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public void setSchoolCd(String schoolCd) {
-        this.schoolCd = schoolCd;
+    // クラス番号
+    public String getClassNum() {
+        return classNum;
     }
- // 回数
+
+    public void setClassNum(String classNum) {
+        this.classNum = classNum;
+    }
+
+    // 科目
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    // 学校
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    // 回数
     public int getNo() {
         return no;
     }
@@ -43,20 +57,13 @@ public class Test implements Serializable {
     public void setNo(int no) {
         this.no = no;
     }
- // 得点
+
+    // 得点
     public int getPoint() {
         return point;
     }
 
     public void setPoint(int point) {
         this.point = point;
-    }
- // クラス番号
-    public String getClassNum() {
-        return classNum;
-    }
-
-    public void setClassNum(String classNum) {
-        this.classNum = classNum;
     }
 }
