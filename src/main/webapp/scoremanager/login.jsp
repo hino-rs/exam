@@ -4,7 +4,7 @@
     <jsp:param name="title" value="ログイン" />
 
     <jsp:param name="content" value="
-        <!-- ログインカード（横長 1.5倍） -->
+        <!-- ログインカード  -->
         <div class='card shadow-sm' style='max-width: 600px; margin: 40px auto; padding: 0;'>
 
             <!-- タイトル部分（薄いグレー帯） -->
@@ -41,7 +41,7 @@
                         <label for='passwordInput' style='font-size: 0.85rem;'>パスワード</label>
                     </div>
 
-                    <!-- パスワード表示チェック（中央配置） -->
+                    <!-- パスワード表示チェック -->
                     <div class='mb-3' style='text-align: center;'>
                         <input type='checkbox' id='showPassword' class='form-check-input'>
                         <label for='showPassword' class='form-check-label'>パスワードを表示</label>
