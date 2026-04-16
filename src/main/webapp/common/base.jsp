@@ -31,7 +31,7 @@ ${param.scripts}
 
         <c:choose>
 
-            <c:when test="${not empty sessionScope.teacher}">
+            <c:when test="${not empty sessionScope.loginUser}">
                 <nav class="col-3" style="height:40rem;">
                     <c:import url="/common/navigation.jsp" />
                 </nav>
