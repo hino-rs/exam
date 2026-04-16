@@ -10,7 +10,7 @@ public class LoginAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		System.out.println("hello LoginAction");
+		System.out.println(">> LoginAction");
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 }

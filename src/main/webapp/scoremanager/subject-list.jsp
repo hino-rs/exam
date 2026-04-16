@@ -13,7 +13,7 @@
 	
 	<c:forEach var="s" items="${subjects}" >
 		<tr>
-			<td>${s.code}</td>
+			<td>${s.cd}</td>
 			<td>
 				${s.name}
 				<a href="#">変更</a>

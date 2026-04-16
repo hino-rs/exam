@@ -10,7 +10,7 @@ public class MenuAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		System.out.println("hello MenuAction");
+		System.out.println(">> MenuAction");
 		request.getRequestDispatcher("menu.jsp").forward(request, response);
 	}
 }
