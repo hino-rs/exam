@@ -12,14 +12,17 @@ public class SchoolDao extends DAO {
 		
 		Connection con = getConnection();
 		
+		System.out.println("SELECT * FROM school WHERE cd = "+cd);
 		PreparedStatement st;
 		st = con.prepareStatement("SELECT * FROM school WHERE cd = ?");
 		st.setString(1, cd);
 		ResultSet rs = st.executeQuery();
 		
-		school.setCd(rs.getString("cd"));
-		school.setName(rs.getString("name"));
-
+		if (rs.next()) {
+			school.setCd(rs.getString("cd"));
+			school.setName(rs.getString("name"));
+		}
+			
 		return school;
 	}
 }
