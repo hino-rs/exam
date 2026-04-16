@@ -10,7 +10,7 @@ import java.util.List;
 import bean.School;
 import bean.Student;
 
-public class StudentDao<SchoolDao> extends DAO {
+public class StudentDao extends DAO {
 	private String baseSql = "SELECT * FROM student WHERE school_cd=? ";
 	
 	private List<Student> postFilter(ResultSet rSet, School school) throws Exception {
@@ -39,7 +39,7 @@ public class StudentDao<SchoolDao> extends DAO {
 	public Student get(String no) throws Exception {
 		Student s = new Student();
 		Connection con = getConnection();
-		PreparedStatement st;
+		PreparedStatement st = null;
 		
 		try {
 			st = con.prepareStatement("SELECT * FROM student WHERE no=?");
@@ -56,7 +56,7 @@ public class StudentDao<SchoolDao> extends DAO {
 				s.setAttend(rSet.getBoolean("is_attend"));
 				s.setSchool(schoolDao.get(rSet.getString("school_cd")));
 			} else {
-				student = null;
+				s = null;
 			}
 		} catch (Exception e) {
 			throw e;
