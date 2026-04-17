@@ -5,5 +5,5 @@
 
 <p>登録が完了しました</p>
 
-<a href="#">戻る</a>
-<a href="#">科目一覧</a>
+<a href="SubjectCreate.action">戻る</a>
+<a href="SubjectList.action">科目一覧</a>
