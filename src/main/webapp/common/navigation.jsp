@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!-- サイドバー（ログイン後のみ表示） -->
-<c:if test="${not empty sessionScope.teacher}">
+<c:if test="${not empty sessionScope.loginUser}">
     <div id="sidebar" style="width: 200px;">
 
         <nav>
