@@ -3,7 +3,7 @@
 
 <h2>科目管理</h2>
 
-<a href="#">新規登録</a>
+<a href="SubjectCreate.action" method="post">新規登録</a>
 
 <table border="1">
 	<tr>

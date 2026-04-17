@@ -58,4 +58,29 @@ public class SubjectDao extends DAO {
 		con.close();
 		return list;
 	}
+	
+	public boolean save(String cd, String name, String schoolCd) throws Exception {
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		
+		
+		st = con.prepareStatement("INSERT INTO subject VALUES(?, ?, ?)");
+		st.setString(1, schoolCd);
+		st.setString(2, cd);
+		st.setString(3, name);
+		
+		
+		int rs = st.executeUpdate();
+		
+		boolean result = false;
+		
+		if (rs > 0) {
+			result = true;
+		}
+		
+		st.close();
+		con.close();
+		return result;
+	}
 }
