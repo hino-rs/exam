@@ -59,24 +59,37 @@ public class SubjectDao extends DAO {
 		return list;
 	}
 	
-	public boolean save(String cd, String name, String schoolCd) throws Exception {
+	public String save(String cd, String name, String schoolCd) throws Exception {
 		Connection con = getConnection();
+		PreparedStatement uniqueCheck;
+		
+		uniqueCheck = con.prepareStatement("SELECT TRUE FROM subject WHERE cd = ?");
+		uniqueCheck.setString(1, cd);
+		
+		ResultSet uniqueCheckResult = uniqueCheck.executeQuery();
+		
+		if (uniqueCheckResult.next()) {
+			if (uniqueCheckResult.getBoolean(1)) {
+				tool.Logger.error("subject: ユニーク違反");
+				return "DUPLICATE";
+			}
+		}
+		
+		uniqueCheck.close();
+		
 		PreparedStatement st;
-		
-		
 		
 		st = con.prepareStatement("INSERT INTO subject VALUES(?, ?, ?)");
 		st.setString(1, schoolCd);
 		st.setString(2, cd);
 		st.setString(3, name);
 		
-		
 		int rs = st.executeUpdate();
 		
-		boolean result = false;
+		String result = "FAILURE";
 		
 		if (rs > 0) {
-			result = true;
+			result = "SUCCESS";
 		}
 		
 		st.close();

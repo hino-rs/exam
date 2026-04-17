@@ -28,14 +28,17 @@ public class SubjectCreateExecuteAction extends Action {
 		}
 
 		SubjectDao dao = new SubjectDao();
+		String result = dao.save(cd, name, schoolCd);
 
-		if (dao.save(cd, name, schoolCd)) {
+		if (result.equals("SUCCESS")) {
 			tool.Logger.info("科目登録成功");
 			request.getRequestDispatcher("subject_create_done.jsp").forward(request, response);
-		} else {
+		} else if (result.equals("DUPLICATE")) {
 			tool.Logger.warn("科目が重複しています: "+cd);
 			request.setAttribute("error", "科目コードが重複しています");
 			request.getRequestDispatcher("subject_create.jsp").forward(request, response);
+		} else {
+			tool.Logger.error("エラー");
 		}
 	}
 }

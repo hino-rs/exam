@@ -6,14 +6,14 @@
 <form action="SubjectCreateExecute.action">
 
 	<label name="cd">科目コード</label>
-	<input type="text" name="cd" />
+	<input type="text" name="cd" required />
 
 	<c:if test='${not empty error}'>
 		<p class='text-danger text-center mb-3'>${error}</p>
 	</c:if>
 
 	<label name="name">科目名</label>
-	<input type="text" name="name" />
+	<input type="text" name="name" required />
 
 	<input type="submit" value="登録">
 
