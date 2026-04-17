@@ -11,7 +11,7 @@
         <div style="font-size: 1.1rem; align-self: flex-end;">
 
             <!-- ユーザー名＋様 -->
-            <span>${sessionScope.loginUser} 様</span>
+            <span>${sessionScope.loginUserName} 様</span>
 
             <!-- ログアウトリンク -->
             <a href="/exam/scoremanager/Logout.action" style="margin-left: 20px; color: blue;">
