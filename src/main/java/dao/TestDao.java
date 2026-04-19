@@ -12,25 +12,40 @@ import bean.Subject;
 import bean.Test;
 
 public class TestDao extends DAO {
-
-    // JOIN して Test + Student + Subject + School をまとめて取得
-    private String baseSql =
-        "SELECT t.student_no, t.subject_cd, t.school_cd, t.no, t.point, t.class_num, " +
-        "s.name AS student_name, s.ent_year, s.class_num AS student_class, s.is_attend, " +
-        "sub.name AS subject_name, sch.name AS school_name " +
-        "FROM test t " +
-        "JOIN student s ON t.student_no = s.student_no " +
-        "JOIN subject sub ON t.subject_cd = sub.cd " +
-        "JOIN school sch ON t.school_cd = sch.cd ";
+	
+	// ------------------------------------------------------------
+    // baseSql : JOIN して Test + Student + Subject + School をまとめて取得
+	// ------------------------------------------------------------
+	private static final String baseSql =
+		    "SELECT " +
+		    " t.student_no, " +					// 学生番号
+		    " t.subject_cd, " +					// 科目コード
+		    " t.school_cd, " +					// 学校コード
+		    " t.no, " +							// 回数	
+		    " t.point, " +						// 点数
+		    " t.class_num, " +			        // テストを受けたときのクラス	
+		    " s.name AS student_name, " +		// 学生名	
+		    " s.ent_year, " +					// 入学年度	
+		    " s.class_num AS student_class, " +	// 学生の現在のクラス
+		    " s.is_attend, " +					// 在籍フラグ
+		    " sub.name AS subject_name, " +		// 科目名
+		    " sch.name AS school_name " +		// 学校名
+		    "FROM test t " +					// テストテーブルを基点に JOIN
+		    "JOIN student s ON t.student_no = s.no " +      // 学生テーブルと JOIN	
+		    "JOIN subject sub ON t.subject_cd = sub.cd " +  // 科目テーブルと JOIN
+		    "JOIN school sch ON t.school_cd = sch.cd ";		// 学校テーブルと JOIN
 
     // ------------------------------------------------------------
-    // 1件取得（student + subject + school + no）
+    // get : テスト1件を取得
     // ------------------------------------------------------------
     public Test get(Student student, Subject subject, School school, int no) throws Exception {
 
         Connection con = getConnection();
         PreparedStatement st = con.prepareStatement(
-            baseSql + " WHERE t.student_no = ? AND t.subject_cd = ? AND t.school_cd = ? AND t.no = ?"
+            baseSql + " WHERE t.student_no = ? "
+            		+ "AND t.subject_cd = ? "
+            		+ "AND t.school_cd = ? "
+            		+ "AND t.no = ?"
         );
 
         st.setString(1, student.getNo());
@@ -53,7 +68,7 @@ public class TestDao extends DAO {
     }
 
     // ------------------------------------------------------------
-    // ResultSet → List<Test> へ変換
+    // postFilter : ResultSet → List<Test> へ変換
     // ------------------------------------------------------------
     public List<Test> postFilter(ResultSet rs, School school) throws Exception {
         List<Test> list = new ArrayList<>();
@@ -68,14 +83,18 @@ public class TestDao extends DAO {
     }
 
     // ------------------------------------------------------------
-    // 条件検索（入学年度・クラス・科目・回数・学校）
+    // filter : 条件検索（入学年度・クラス・科目・回数・学校）
     // ------------------------------------------------------------
     public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school) throws Exception {
 
         Connection con = getConnection();
         PreparedStatement st = con.prepareStatement(
             baseSql +
-            " WHERE s.ent_year = ? AND s.class_num = ? AND t.subject_cd = ? AND t.no = ? AND t.school_cd = ?"
+            " WHERE s.ent_year = ? "
+            + "AND s.class_num = ? "
+            + "AND t.subject_cd = ? "
+            + "AND t.no = ? "
+            + "AND t.school_cd = ?"
         );
 
         st.setInt(1, entYear);
@@ -95,35 +114,44 @@ public class TestDao extends DAO {
     }
 
     // ------------------------------------------------------------
-    // テスト結果をまとめて保存
+    // save : テスト結果をまとめて保存
     // ------------------------------------------------------------
-    public boolean save(List<Test> list) throws Exception {
+    public boolean update(Test test) throws Exception {
         Connection con = getConnection();
-        con.setAutoCommit(false);
 
-        try {
-            for (Test test : list) {
-                save(test, con);
-            }
-            con.commit();
-            return true;
+        PreparedStatement st = con.prepareStatement(
+            "UPDATE test SET point = ? "
+            + "WHERE student_no = ? "
+            + "AND subject_cd = ? "
+            + "AND school_cd = ? "
+            + "AND no = ?"
+        );
 
-        } catch (Exception e) {
-            con.rollback(); // 1件でも失敗したら全て取り消す
-            throw e;
+        st.setInt(1, test.getPoint());
+        st.setString(2, test.getStudent().getNo());
+        st.setString(3, test.getSubject().getCd());
+        st.setString(4, test.getSchool().getCd());
+        st.setInt(5, test.getNo());
 
-        } finally {
-            con.close();
-        }
+        int result = st.executeUpdate();
+
+        st.close();
+        con.close();
+
+        return result == 1;
     }
 
     // ------------------------------------------------------------
-    // テスト1件を保存（UPDATE）
+    // update : テスト1件を更新
     // ------------------------------------------------------------
-    public boolean save(Test test, Connection con) throws Exception {
+    public boolean update(Test test, Connection con) throws Exception {
 
         PreparedStatement st = con.prepareStatement(
-            "UPDATE test SET point = ? WHERE student_no = ? AND subject_cd = ? AND school_cd = ? AND no = ?"
+            "UPDATE test SET point = ? "
+            + "WHERE student_no = ? "
+            + "AND subject_cd = ? "
+            + "AND school_cd = ? "
+            + "AND no = ?"
         );
 
         st.setInt(1, test.getPoint());
@@ -137,9 +165,39 @@ public class TestDao extends DAO {
 
         return result == 1;
     }
+    
+    // ------------------------------------------------------------
+    // insert : テスト1件を保存
+    // ------------------------------------------------------------
+    public boolean insert(Test test) throws Exception {
+        Connection con = getConnection();
+
+        PreparedStatement st = con.prepareStatement(
+            "INSERT INTO test "
+            + "(student_no,"
+            + " subject_cd,"
+            + " school_cd,"
+            + " no, point, class_num)" 
+    		+ " VALUES (?, ?, ?, ?, ?, ?)"
+        );
+
+        st.setString(1, test.getStudent().getNo());
+        st.setString(2, test.getSubject().getCd());
+        st.setString(3, test.getSchool().getCd());
+        st.setInt(4, test.getNo());
+        st.setInt(5, test.getPoint());
+        st.setString(6, test.getClassNum());
+
+        int result = st.executeUpdate();
+
+        st.close();
+        con.close();
+
+        return result == 1;
+    }
 
     // ------------------------------------------------------------
-    // JOIN 結果を Test オブジェクトへ変換
+    // mapToTest : JOIN 結果を Test オブジェクトへ変換
     // ------------------------------------------------------------
     private Test mapToTest(ResultSet rs) throws Exception {
 
