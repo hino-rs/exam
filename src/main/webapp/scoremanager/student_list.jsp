@@ -75,7 +75,7 @@
                         <td>${student.classNum }</td>
                         <td class="text-center">
                             <c:choose>
-                                <c:when test="${student.idAttend() }">
+                                <c:when test="${student.attend }">
                                     〇
                                 </c:when>
                                 <c:otherwise>
