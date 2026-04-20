@@ -96,4 +96,23 @@ public class SubjectDao extends DAO {
 		con.close();
 		return result;
 	}
+	
+	public boolean update(String target, String newName) throws Exception {
+		boolean result = false;
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("UPDATE subject SET name = ? WHERE cd = ?");
+		st.setString(1, newName);
+		st.setString(2, target);
+		
+		int rs = st.executeUpdate();
+		
+		
+		if (rs > 0) {
+			result = true;
+		}
+		
+		return result;
+	}
 }

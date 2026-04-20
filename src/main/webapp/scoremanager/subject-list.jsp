@@ -16,7 +16,11 @@
 			<td>${s.cd}</td>
 			<td>
 				${s.name}
-				<a href="#">変更</a>
+				<form action="SubjectUpdate.action" method="post">
+					<input type="hidden" name="cd" value="${s.cd}">
+					<input type="hidden" name="name" value="${s.name}">
+					<input type="submit" value="変更">
+				</form>
 				<a href="#">削除</a>
 			</td>
 		</tr>
