@@ -27,7 +27,7 @@ public class ClassNumDao extends DAO {
         ClassNum cn = null;
         if (rs.next()) {
             cn = new ClassNum();
-            cn.setClassNum(rs.getString("class_num"));
+            cn.setClass_num(rs.getString("class_num"));
             cn.setSchool(school);
         }
 
@@ -71,7 +71,7 @@ public class ClassNumDao extends DAO {
             "INSERT INTO class_num (class_num, school_cd) VALUES (?, ?)"
         );
 
-        st.setString(1, classNum.getClassNum());
+        st.setString(1, classNum.getClass_num());
         st.setString(2, classNum.getSchool().getCd());
 
         int result = st.executeUpdate();
@@ -91,7 +91,7 @@ public class ClassNumDao extends DAO {
         );
 
         st.setString(1, newClassNum);
-        st.setString(2, classNum.getClassNum());
+        st.setString(2, classNum.getClass_num());
         st.setString(3, classNum.getSchool().getCd());
 
         int result = st.executeUpdate();
