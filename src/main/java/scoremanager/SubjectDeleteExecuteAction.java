@@ -27,6 +27,7 @@ public class SubjectDeleteExecuteAction extends Action {
 		s.setName(name);
 		s.setSchool(loginUserSchool);
 		
+		
 		SubjectDao dao = new SubjectDao();
 		if (dao.delete(s)) {
 			tool.Logger.info("科目削除に成功");

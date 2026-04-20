@@ -4,14 +4,44 @@
     <c:param name="title">
         成績管理システム
     </c:param>
-    <c:param name="scripts"></c:param>
+    <c:param name="scripts">
+<style>
+.title {
+    background-color: #f5f5f5;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    margin: 0 0 20px 0;
+    font-weight: normal;
+}
+
+.alert-success {
+    background-color: #8cb89f;
+    color: #000;
+    padding: 12px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.back-link {
+    color: #0000ff;
+    text-decoration: underline;
+    font-size: 0.9em;
+}
+
+.back-link:hover {
+    color: #0000cc;
+}
+</style>
+    </c:param>
     <c:param name="content">
 
-	<h2>科目情報削除</h2>
-	
-	<p>削除が完了しました</p>
-	
-	<a href="SubjectList.action">科目一覧</a>
+    <h2 class="title">科目情報削除</h2>
+    
+    <div class="alert-success">
+        削除が完了しました
+    </div>
+    
+    <a href="SubjectList.action" class="back-link">科目一覧</a>
 
     </c:param>
 </c:import>

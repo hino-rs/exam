@@ -23,6 +23,6 @@ public class SubjectListAction extends Action {
 		SubjectDao sDao = new SubjectDao();
 		subjects = sDao.filter(loginUserSchool);
 		req.setAttribute("subjects", subjects);
-		req.getRequestDispatcher("subject-list.jsp").forward(req, res);
+		req.getRequestDispatcher("subject_list.jsp").forward(req, res);
 	}
 }
