@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-
 <%@ include file="/common/header.jsp" %>
 
 
 <h2>学生登録情報</h2>
 
-<form action="student_create_done.jsp" method="post">
+<form action="Student_Create_ExecuteAction.java" method="post">
 
     <label>入学年度</label>
     <select name="ent_year">
@@ -28,7 +27,9 @@
 
     <label>クラス</label>
     <select name="class_num">
-        <option value=""></option>
+        <c:forEach var="num" items="${class_num}">
+        <option value="${num}">${num}</option>
+    </c:forEach>
     </select>
 
 	<br><br>
