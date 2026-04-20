@@ -14,6 +14,9 @@
     crossorigin="anonymous">
 
 <title>${param.title}</title>
+<style type="text/css">
+${param.styles}
+</style>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 ${param.scripts}
