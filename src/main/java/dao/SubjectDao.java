@@ -113,6 +113,28 @@ public class SubjectDao extends DAO {
 			result = true;
 		}
 		
+		st.close();
+		con.close();
+		
+		return result;
+	}
+	
+	public boolean delete(Subject subject) throws Exception {
+		boolean result = false;
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("DELETE FROM subject WHERE cd = ?");
+		st.setString(1, subject.getCd());
+		
+		int rs = st.executeUpdate();
+		if (rs > 0) {
+			result = true;
+		}
+		
+		st.close();
+		con.close();
+		
 		return result;
 	}
 }

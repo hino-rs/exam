@@ -21,7 +21,11 @@
 					<input type="hidden" name="name" value="${s.name}">
 					<input type="submit" value="変更">
 				</form>
-				<a href="#">削除</a>
+				<form action="SubjectDelete.action" method="post">
+					<input type="hidden" name="cd" value="${s.cd}">
+					<input type="hidden" name="name" value="${s.name}">
+					<input type="submit" value="削除">
+				</form>
 			</td>
 		</tr>
 	</c:forEach>
