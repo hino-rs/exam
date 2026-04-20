@@ -3,7 +3,6 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,97 +10,96 @@ import bean.ClassNum;
 import bean.School;
 
 public class ClassNumDao extends DAO {
-	public ClassNum get (String class_num, School school) throws Exception {
-		//クラス番号インスタンスを初期化
-		ClassNum classNum = new ClassNum();
-		//データベースへのコネクションを確立
-		Connection connection = getConnection();
-		//プリペアードステートメント
-		PreparedStatement statement = null;
-		try {
-			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from class_num where class_num = ? and school_cd = ?");
-			//プリペアードステートメントに値をバインド
-			statement.setString(1, class_num);
-			statement.setString(2, school.getCd());
-			//プリペアードステートメントを実行
-			ResultSet rSet = statement.executeQuery();
-			//学校Daoを初期化
-			SchoolDao sDao = new SchoolDao();
-			if (rSet.next()) {
-				//リザルトセットが存在する場合
-				//クラス番号インスタンスに検索結果をセット
-				classNum.setClass_num(rSet.getString("class_num"));
-				classNum.setSchool(sDao.get(rSet.getString("school_cd")));
-			} else {
-				//リザルトセットが存在しない場合
-				//クラス番号インスタンスにnullをセット
-				classNum = null;
-			} 
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			//プリペアードステートメントを閉じる
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-		
-		return classNum;
-	}
-		
-	
-	public List<String> filter(School school) throws Exception {
-		Connection con = getConnection();
-		List<String> list=new ArrayList<>();
-		PreparedStatement st =null;
-		try {
-			//プリペアードステートメントにSQL文をセット
-			st = con
-					.prepareStatement("slect class_num from class_num where school_cd=? order by class_num");
-		//プリペアードステートメントに学校コードをバインド
-			st.setString(1, school.getCd());
-			//プリペアードステートメントを実行	
-			ResultSet rSet = st.executeQuery();
-			
-			//リザルトセットを全件走査
-			while (rSet.next()) {
-				//リストにクラス番号を追加
-				list.add(rSet.getString("class_num"));
-			}
-		} catch (Exception e) {
-			throw e;
-		}finally {
-			//プリペアードステートメントを閉じる
-			if (st != null) {
-				try {
-					st.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-			//コネクションを閉じる
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-		
-		return list;
-	}
-	
-//	public boolean save(ClassNum classNum) throws Exception {
-//		
-//	}
-//	
-//	public boolean save(ClassNum classNum, String newClassNum) throws Exception {
-//		
-//	}
+
+    // 1件取得（class_num + school_cd）
+    public ClassNum get(String classNum, School school) throws Exception {
+
+        Connection con = getConnection();
+        PreparedStatement st = con.prepareStatement(
+            "SELECT class_num FROM class_num WHERE class_num = ? AND school_cd = ?"
+        );
+
+        st.setString(1, classNum);
+        st.setString(2, school.getCd());
+
+        ResultSet rs = st.executeQuery();
+
+        ClassNum cn = null;
+        if (rs.next()) {
+            cn = new ClassNum();
+            cn.setClassNum(rs.getString("class_num"));
+            cn.setSchool(school);
+        }
+
+        rs.close();
+        st.close();
+        con.close();
+
+        return cn;
+    }
+
+    // クラス一覧を取得（学校ごと）
+    public List<String> filter(School school) throws Exception {
+
+        List<String> list = new ArrayList<>();
+
+        Connection con = getConnection();
+        PreparedStatement st = con.prepareStatement(
+            "SELECT class_num FROM class_num WHERE school_cd = ? ORDER BY class_num"
+        );
+
+        st.setString(1, school.getCd());
+
+        ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+            list.add(rs.getString("class_num"));
+        }
+
+        rs.close();
+        st.close();
+        con.close();
+
+        return list; 
+    }
+
+    // クラス名を保存（INSERT）
+    public boolean save(ClassNum classNum) throws Exception {
+
+        Connection con = getConnection();
+        PreparedStatement st = con.prepareStatement(
+            "INSERT INTO class_num (class_num, school_cd) VALUES (?, ?)"
+        );
+
+        st.setString(1, classNum.getClassNum());
+        st.setString(2, classNum.getSchool().getCd());
+
+        int result = st.executeUpdate();
+
+        st.close();
+        con.close();
+
+        return result == 1;
+    }
+
+    // クラス名を変更（UPDATE）
+    public boolean save(ClassNum classNum, String newClassNum) throws Exception {
+
+        Connection con = getConnection();
+        PreparedStatement st = con.prepareStatement(
+            "UPDATE class_num SET class_num = ? WHERE class_num = ? AND school_cd = ?"
+        );
+
+        st.setString(1, newClassNum);
+        st.setString(2, classNum.getClassNum());
+        st.setString(3, classNum.getSchool().getCd());
+
+        int result = st.executeUpdate();
+
+        st.close();
+        con.close();
+
+        return result == 1;
+    }
+    
 }

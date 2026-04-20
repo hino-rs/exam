@@ -2,13 +2,11 @@ package bean;
 
 import java.io.Serializable;
 
-import javax.security.auth.Subject;
-
 public class Test implements Serializable {
 
     private Student student;   // 学生オブジェクト
     private String classNum;   // クラス番号
-    private Subject subject;   // 科目オブジェクト
+    private Subject subject;   // 科目オブジェクト（bean.Subject）
     private School school;     // 学校オブジェクト
     private int no;            // 回数
     private int point;         // 得点
@@ -17,7 +15,6 @@ public class Test implements Serializable {
     public Student getStudent() {
         return student;
     }
-
     public void setStudent(Student student) {
         this.student = student;
     }
@@ -26,7 +23,6 @@ public class Test implements Serializable {
     public String getClassNum() {
         return classNum;
     }
-
     public void setClassNum(String classNum) {
         this.classNum = classNum;
     }
@@ -35,7 +31,6 @@ public class Test implements Serializable {
     public Subject getSubject() {
         return subject;
     }
-
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
@@ -44,7 +39,6 @@ public class Test implements Serializable {
     public School getSchool() {
         return school;
     }
-
     public void setSchool(School school) {
         this.school = school;
     }
@@ -53,7 +47,6 @@ public class Test implements Serializable {
     public int getNo() {
         return no;
     }
-
     public void setNo(int no) {
         this.no = no;
     }
@@ -62,7 +55,6 @@ public class Test implements Serializable {
     public int getPoint() {
         return point;
     }
-
     public void setPoint(int point) {
         this.point = point;
     }

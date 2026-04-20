@@ -91,7 +91,7 @@ public class StudentDao extends DAO {
 		PreparedStatement st = null;
 		ResultSet rSet = null;
 		String condition = "and ent_year=? and class_num=?";
-		String order = " order bey no asc";
+		String order = " order by no asc";
 		String conditionIsAttend = "";
 		
 		if (isAttend) {
@@ -139,7 +139,7 @@ public class StudentDao extends DAO {
 		PreparedStatement st = null;
 		ResultSet rSet = null;
 		String condition = "and ent_year=? ";
-		String order = " order bey no asc";
+		String order = " order by no asc";
 		String conditionIsAttend = "";
 		
 		if (isAttend) {
@@ -184,7 +184,7 @@ public class StudentDao extends DAO {
 		Connection con = getConnection();
 		PreparedStatement st = null;
 		ResultSet rSet = null;
-		String order = " order bey no asc";
+		String order = " order by no asc";
 		String conditionIsAttend = "";
 		
 		if (isAttend) {

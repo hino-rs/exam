@@ -20,4 +20,12 @@ public class Logger {
 	public static void debug(String text) {
 		out("\u001b[00;36m"+text);
 	}
+	
+	public static void execute(String text) {
+		out("\u001b[00;46m"+text);
+	}
+	
+	public static void dao(String text) {
+		out("\u001b[00;45m"+text);
+	}
 }

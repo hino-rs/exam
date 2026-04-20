@@ -5,6 +5,11 @@
         得点管理システム
     </c:param>
     
+    <c:param name="styles">
+    body {background-color: #ccc;}
+	p {font-size: 20px; color: red;}
+    </c:param>
+    
     <c:param name="scripts"></c:param>
     
     <c:param name="content">
@@ -13,7 +18,7 @@
             <div class="my-2 text-end px-4">
                 <a href="StudentCreate.action">新規登録</a>
             </div>
-            <form method="get">
+            <form method="get" id="test">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <div class="col-4">
                         <label class="form-label" for="student-f1-select">入学年度</label>
@@ -75,7 +80,7 @@
                         <td>${student.classNum }</td>
                         <td class="text-center">
                             <c:choose>
-                                <c:when test="${student.idAttend() }">
+                                <c:when test="${student.attend }">
                                     〇
                                 </c:when>
                                 <c:otherwise>
