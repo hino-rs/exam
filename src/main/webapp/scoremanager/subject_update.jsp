@@ -14,6 +14,10 @@
 		<label>科目コード</label>
 		<input type="text" name="cd" value="${cd}" readonly>
 		
+		<c:if test='${not empty error}'>
+        	<p class='text-danger text-center mb-3'>${error}</p>
+        </c:if>
+		
 		<label>科目名</label>
 		<input type="text" name="name" value="${name}">
 		

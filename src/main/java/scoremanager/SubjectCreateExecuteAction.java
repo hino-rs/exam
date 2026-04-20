@@ -13,7 +13,8 @@ public class SubjectCreateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		System.out.println("\u001b[00;36m"+"SubjectCreateExecuteAction"+"\u001b[00m");
+		tool.Logger.execute("SubjectCreateExecuteAction");
+		
 		HttpSession session = request.getSession();
 		School school = (School)session.getAttribute("loginUserSchool");
 		String schoolCd = school.getCd();
@@ -22,7 +23,7 @@ public class SubjectCreateExecuteAction extends Action {
 		String name = request.getParameter("name");
 		
 		if (cd.length() != 3) {
-			tool.Logger.warn("科目コードが不正: "+cd);
+			tool.Logger.error("変更後の科目コードが不正: "+cd);
 			request.setAttribute("error", "科目コードは3文字で入力してください");
 			request.getRequestDispatcher("subject_create.jsp").forward(request, response);
 		}
@@ -34,11 +35,11 @@ public class SubjectCreateExecuteAction extends Action {
 			tool.Logger.info("科目登録成功");
 			request.getRequestDispatcher("subject_create_done.jsp").forward(request, response);
 		} else if (result.equals("DUPLICATE")) {
-			tool.Logger.warn("科目が重複しています: "+cd);
+			tool.Logger.error("変更後の科目が重複: "+cd);
 			request.setAttribute("error", "科目コードが重複しています");
 			request.getRequestDispatcher("subject_create.jsp").forward(request, response);
 		} else {
-			tool.Logger.error("エラー");
+			tool.Logger.error("科目登録失敗");
 		}
 	}
 }

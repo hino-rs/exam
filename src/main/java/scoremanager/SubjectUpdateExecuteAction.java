@@ -11,7 +11,7 @@ public class SubjectUpdateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		System.out.println(">> SubjectUpdateExecuteAction");
+		tool.Logger.execute("SubjectUpdateExecuteAction");
 		
 		String cd = (String) request.getParameter("cd");
 		String name = (String) request.getParameter("name");
