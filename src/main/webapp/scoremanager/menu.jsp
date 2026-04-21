@@ -37,6 +37,7 @@
 		            </div>
 		        </div>
 		
+				<a href="UserList.action">ユーザー管理</a>
 		    </div>
 		</section>
     </c:param>

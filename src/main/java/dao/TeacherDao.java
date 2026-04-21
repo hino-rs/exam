@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import bean.Teacher;
 
@@ -49,5 +51,32 @@ public class TeacherDao extends DAO {
 		teacher.setSchool(sDao.get(rs.getString("school_cd")));
 		
 		return teacher;
+	}
+	
+	public List<Teacher> getAll() throws Exception {
+		tool.Logger.dao("teacher filter");
+		
+		Teacher t = null;
+		List<Teacher> list = new ArrayList<>();
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("SELECT * FROM teacher");
+		ResultSet rs = st.executeQuery();
+		
+		SchoolDao dao = new SchoolDao();
+		
+		while (rs.next()) {
+			t = new Teacher();
+			t.setId(rs.getString("id"));
+			t.setName(rs.getString("name"));
+			t.setSchool(dao.get(rs.getString("school_cd")));
+			list.add(t);
+		}
+		
+		st.close();
+		con.close();
+		return list;
 	}
 }
