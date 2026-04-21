@@ -17,18 +17,20 @@ public class SubjectDeleteExecuteAction extends Action {
 		tool.Logger.execute("SubjectDeleteExecuteAction");
 		
 		HttpSession session = request.getSession();
-		School loginUserSchool = (School) session.getAttribute("loginUserSchool");
 		
 		String cd = (String) request.getParameter("cd");
 		String name = (String) request.getParameter("name");
+		School loginUserSchool = (School) session.getAttribute("loginUserSchool");
 		
 		Subject s = new Subject();
+		
 		s.setCd(cd);
 		s.setName(name);
 		s.setSchool(loginUserSchool);
 		
 		
 		SubjectDao dao = new SubjectDao();
+		
 		if (dao.delete(s)) {
 			tool.Logger.info("科目削除に成功");
 			request.getRequestDispatcher("subject_delete_done.jsp").forward(request, response);

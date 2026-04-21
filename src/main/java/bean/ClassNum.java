@@ -1,7 +1,9 @@
 package bean;
 
 public class ClassNum implements java.io.Serializable {
-	private String classNum;
+
+	private String class_num;
+
 	private School school;
 	
 	// 学校
@@ -13,11 +15,10 @@ public class ClassNum implements java.io.Serializable {
 	}
 	
 	// クラス番号
-	public String getClassNum() {
-		return classNum;
+	public String getClass_num() {
+		return class_num;
 	}
-	public void setClassNum(String classNum) {
-		this.classNum=classNum;
+	public void setClass_num(String class_num) {
+		this.class_num=class_num;
 	}
-		
 }

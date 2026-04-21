@@ -219,8 +219,10 @@ public class StudentDao extends DAO {
 		return list;
 	}
 	
-	// 追加？
+	// 追加・更新
 	public boolean save(Student student) throws Exception {
+		tool.Logger.dao("StudentDao save");
+		
 		Connection con = getConnection();		
 		PreparedStatement st = null;
 		int count = 0;
@@ -229,7 +231,7 @@ public class StudentDao extends DAO {
 			Student old = get(student.getNo());
 			if (old == null) {
 				st = con.prepareStatement(
-						"insert into student(no, name, ent_year, class_nul, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
+						"insert into student(no, name, ent_year, class_num, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
 				st.setString(1, student.getNo());
 				st.setString(2, student.getName());
 				st.setInt(3, student.getEntYear());
@@ -237,13 +239,14 @@ public class StudentDao extends DAO {
 				st.setBoolean(5, student.getAttend());
 				st.setString(6, student.getSchool().getCd());
 			} else {
+				tool.Logger.debug("student updateへ");
 				st = con.prepareStatement(
 					"update student set name=?, ent_year=?, class_num=?, is_attend=? where no=?");
-				st.setString(1, student.getNo());
-				st.setString(2, student.getName());
-				st.setInt(3, student.getEntYear());
-				st.setString(4, student.getClassNum());
-				st.setBoolean(5, student.getAttend());
+				st.setString(5, student.getNo());
+				st.setString(1, student.getName());
+				st.setInt(2, student.getEntYear());
+				st.setString(3, student.getClassNum());
+				st.setBoolean(4, student.getAttend());
 			}
 			count = st.executeUpdate();
 		} catch (Exception e) {

@@ -5,10 +5,6 @@
         得点管理システム
     </c:param>
     
-    <c:param name="styles">
-    body {background-color: #ccc;}
-	p {font-size: 20px; color: red;}
-    </c:param>
     
     <c:param name="scripts"></c:param>
     
