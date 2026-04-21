@@ -115,4 +115,47 @@ public class TeacherDao extends DAO {
 		
 		return result == 1;
 	}
+	
+	public boolean create(Teacher teacher) throws Exception {
+		tool.Logger.dao("teacher create");
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("INSERT INTO teacher VALUES(?,?,?,?)");
+		st.setString(1, teacher.getId());
+		st.setString(2, teacher.getPassword());
+		st.setString(3, teacher.getName());
+		st.setString(4, teacher.getSchool().getCd());
+		
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result == 1;
+	}
+	
+	public boolean isUnique(String id) throws Exception {
+		tool.Logger.dao("teacher isUnique");
+		
+		Connection con = getConnection();
+		PreparedStatement st = null;
+		
+		st = con.prepareStatement("SELECT TRUE FROM teacher WHERE id = ?");	
+		st.setString(1, id);
+		
+		ResultSet rs = st.executeQuery();
+		
+		boolean result = false;
+		
+		if (!rs.next()) {
+			result = true;
+		}
+		
+		st.close();
+		con.close();
+		
+		return result;
+	}
 }
