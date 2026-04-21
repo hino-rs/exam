@@ -79,4 +79,27 @@ public class TeacherDao extends DAO {
 		con.close();
 		return list;
 	}
+	
+	public boolean update(Teacher teacher) throws Exception {
+		tool.Logger.dao("teacher update");
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		tool.Logger.debug("UPDATE teacher SET name="+teacher.getName()+", school_cd="+teacher.getSchool().getCd()+" WHERE id=+"+teacher.getId());
+		
+		st = con.prepareStatement("UPDATE teacher SET name=?, school_cd=? WHERE id=?");
+		st.setString(1, teacher.getName());
+		st.setString(2, teacher.getSchool().getCd());
+		st.setString(3, teacher.getId());
+		
+		int result = st.executeUpdate();
+
+        st.close();
+        con.close();
+
+        tool.Logger.debug(""+result);
+        
+        return result == 1;
+	}
 }

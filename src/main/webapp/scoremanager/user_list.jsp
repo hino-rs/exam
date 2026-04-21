@@ -93,8 +93,8 @@ a:hover {
                     <td>${t.name}</td>
                     <td>
                     	${t.school.cd}
-                    	<a href="UserUpdate.action?id=${t.id}&name=${t.name}">変更</a>
-                    	<a href="UserDelete.action?id=${t.id}&name=${t.name}">削除</a>
+                    	<a href="UserUpdate.action?id=${t.id}&name=${t.name}&school_cd=${t.school.cd}">変更</a>
+                    	<a href="UserDelete.action?id=${t.id}&name=${t.name}&school_cd=${t.school.cd}">削除</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -23,6 +23,6 @@ public class UserListAction extends Action {
 		teachers = dao.getAll();
 		
 		req.setAttribute("teachers", teachers);
-		req.getRequestDispatcher("teacher_list.jsp").forward(req, res);
+		req.getRequestDispatcher("user_list.jsp").forward(req, res);
 	}
 }
