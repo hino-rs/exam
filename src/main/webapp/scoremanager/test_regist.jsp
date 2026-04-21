@@ -30,7 +30,7 @@
                    <select class="form-select" id="student-f2-select" name="f2">
                        <option value="0">--</option>
                           <c:forEach var="num" items="${class_num_set}">
-                              <option value="${num }" <c:if test="${num==f2 }">selected</c:if>>
+                              <option value="${num }" <c:if test="${num==f2}">selected</c:if>>
                                   ${num}
                               </option>
                           </c:forEach>
@@ -42,7 +42,7 @@
                    <select class="form-select" id="student-f3-select" name="f3">
                        <option value="0">--</option>
                           <c:forEach var="subject" items="${school_subject_set}">
-                              <option value="${subject }" <c:if test="${subject==f3 }">selected</c:if>>
+                              <option value="${subject}" <c:if test="${subject==f3 }">selected</c:if>>
                                   ${subject}
                               </option>
                           </c:forEach>
@@ -64,6 +64,43 @@
                <div class="col-2 text-center">
                    <button class="btn btn-secondary" id="filter-button">検索</button>
                </div>
+            </form>
+            
+            <form method="post" action="TestRegistExecute.action">
+            
+            <input type="hidden" name="subject" value="${f3}">
+            <input type="hidden" name="subject" value="${f4}">
+            
+               <div>科目：${f3} (${f4}回)</div>
+               <table class="table table-hover">
+                   <tr>
+                       <th>入学年度</th>
+                       <th>クラス</th>
+                       <th>学生番号</th>
+                       <th>氏名</th>
+                       <th>点数</th>
+                   </tr>
+                   
+                 <c:forEach var="test" items="${test_list}">
+                   <tr>
+                       <td>${student.entYear}</td>
+                       <td>${student.classNum}</td>
+                       <td>${student.no}</td>
+                       <td>${student.name}</td>
+                       <td>
+                           <input type="number" name="point_${test.student.no }" value="${empty test.point  ? '' : test.point}" min=0 max=100>
+                       </td>
+                   </tr>
+                 </c:forEach>  
+               </table>
+               
+               
+               
+             <div>
+               <button type="submit" class="btn btn-secondary custom-btn">
+               登録して終了
+               </button>
+             </div>
             </form>
     </section>
   </c:param>
