@@ -231,7 +231,7 @@ public class StudentDao extends DAO {
 			Student old = get(student.getNo());
 			if (old == null) {
 				st = con.prepareStatement(
-						"insert into student(no, name, ent_year, class_nul, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
+						"insert into student(no, name, ent_year, class_num, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
 				st.setString(1, student.getNo());
 				st.setString(2, student.getName());
 				st.setInt(3, student.getEntYear());
