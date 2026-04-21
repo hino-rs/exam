@@ -86,8 +86,6 @@ public class TeacherDao extends DAO {
 		Connection con = getConnection();
 		PreparedStatement st;
 		
-		tool.Logger.debug("UPDATE teacher SET name="+teacher.getName()+", school_cd="+teacher.getSchool().getCd()+" WHERE id=+"+teacher.getId());
-		
 		st = con.prepareStatement("UPDATE teacher SET name=?, school_cd=? WHERE id=?");
 		st.setString(1, teacher.getName());
 		st.setString(2, teacher.getSchool().getCd());
@@ -98,8 +96,23 @@ public class TeacherDao extends DAO {
         st.close();
         con.close();
 
-        tool.Logger.debug(""+result);
-        
         return result == 1;
+	}
+	
+	public boolean delete(String id) throws Exception {
+		tool.Logger.dao("teacher delete");
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("DELETE teacher WHERE id = ?");
+		st.setString(1, id);
+		
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result == 1;
 	}
 }
