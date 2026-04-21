@@ -17,11 +17,13 @@ public class SubjectUpdateExecuteAction extends Action {
 		tool.Logger.execute("SubjectUpdateExecuteAction");
 		
 		HttpSession session = request.getSession();
+		
 		String cd = (String) request.getParameter("cd");
 		String name = (String) request.getParameter("name");
 		School school = (School) session.getAttribute("loginUserSchool");
 		
 		Subject subject = new Subject();
+		
 		subject.setCd(cd);
 		subject.setName(name);
 		subject.setSchool(school);

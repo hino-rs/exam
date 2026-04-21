@@ -126,6 +126,9 @@ public class SubjectDao extends DAO {
 		
 		ResultSet rs = st.executeQuery();
 		
+		st.close();
+		con.close();
+		
 		if (rs.next()) {
 			return false;
 		}
