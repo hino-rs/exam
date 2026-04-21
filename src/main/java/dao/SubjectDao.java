@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import bean.School;
 import bean.Subject;
 
 public class SubjectDao extends DAO {
-	public Subject get(String cd, String name) throws Exception {
+	public Subject get(String cd) throws Exception {
 		tool.Logger.dao("subject get");
 		
 		Subject s = null;
@@ -18,9 +19,8 @@ public class SubjectDao extends DAO {
 		Connection con = getConnection();
 		
 		PreparedStatement st;
-		st = con.prepareStatement("SELECT * FROM subject WHERE cd=? AND name=?");
+		st = con.prepareStatement("SELECT * FROM subject WHERE cd=?");
 		st.setString(1, cd);
-		st.setString(2, name);
 		ResultSet rs = st.executeQuery();
 		
 		while (rs.next()) {
@@ -61,68 +61,75 @@ public class SubjectDao extends DAO {
 		return list;
 	}
 	
-	public String save(String cd, String name, String schoolCd) throws Exception {
+	public boolean save(Subject subject) throws Exception {
 		tool.Logger.dao("subject save");
 		
+		School school = subject.getSchool();
+		String schoolCd = school.getCd();
+		String cd = subject.getCd();
+		String name = subject.getName();
+		
 		Connection con = getConnection();
-		PreparedStatement uniqueCheck;
+		PreparedStatement st = null;
+		int count = 0;
 		
-		uniqueCheck = con.prepareStatement("SELECT TRUE FROM subject WHERE cd = ?");
-		uniqueCheck.setString(1, cd);
-		
-		ResultSet uniqueCheckResult = uniqueCheck.executeQuery();
-		
-		if (uniqueCheckResult.next()) {
-			if (uniqueCheckResult.getBoolean(1)) {
-				tool.Logger.error("subject: ユニーク違反");
-				return "DUPLICATE";
+		try {
+			Subject old = get(cd);
+			if (old == null) {
+				st = con.prepareStatement(
+					"insert into subject(school_cd, cd, name) values(?, ?, ?)"
+				);
+				st.setString(1, schoolCd);
+				st.setString(2, cd);
+				st.setString(3, name);
+			} else {
+				st = con.prepareStatement(
+					"UPDATE subject SET name=? where cd=?"
+				);
+				st.setString(1, name);
+				st.setString(2, cd);
+			}
+			count = st.executeUpdate();
+			
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
 			}
 		}
 		
-		uniqueCheck.close();
-		
-		PreparedStatement st;
-		
-		st = con.prepareStatement("INSERT INTO subject VALUES(?, ?, ?)");
-		st.setString(1, schoolCd);
-		st.setString(2, cd);
-		st.setString(3, name);
-		
-		int rs = st.executeUpdate();
-		
-		String result = "FAILURE";
-		
-		if (rs > 0) {
-			result = "SUCCESS";
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
 		}
-		
-		st.close();
-		con.close();
-		return result;
 	}
 	
-	public boolean update(String target, String newName) throws Exception {
-		tool.Logger.dao("subject update");
-		
-		boolean result = false;
+	public boolean isUnique(String cd) throws Exception {
 		Connection con = getConnection();
-		PreparedStatement st;
+		PreparedStatement st = null;
 		
-		st = con.prepareStatement("UPDATE subject SET name = ? WHERE cd = ?");
-		st.setString(1, newName);
-		st.setString(2, target);
+		st = con.prepareStatement("SELECT TRUE FROM subject WHERE cd = ?");	
+		st.setString(1, cd);
 		
-		int rs = st.executeUpdate();
+		ResultSet rs = st.executeQuery();
 		
-		
-		if (rs > 0) {
-			result = true;
+		if (rs.next()) {
+			return false;
 		}
-		
-		st.close();
-		con.close();
-		
-		return result;
+		return true;	
 	}
 	
 	public boolean delete(Subject subject) throws Exception {
