@@ -57,7 +57,7 @@ public class StudentCreateExecuteAction extends Action {
 			student.setAttend(isAttend);
 			student.setSchool(teacher.getSchool());
 			dao.save(student);
-			request.getRequestDispatcher("sutudent_create_done.jsp").forward(request, response);
+			request.getRequestDispatcher("student_create_done.jsp").forward(request, response);
 		} else {tool.Logger.error("学生番号重複");
 		request.setAttribute("error2", "学生番号が重複しています");
 		request.getRequestDispatcher("StudentCreate.action").forward(request, response);
