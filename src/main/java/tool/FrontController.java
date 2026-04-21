@@ -14,11 +14,13 @@ public class FrontController extends HttpServlet {
 	public void doPost(
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
-		System.out.println("[]: FrontConftroller");
 		PrintWriter out=response.getWriter();
 		try {
 			String path=request.getServletPath().substring(1);
-			String name=path.replace(".a", "A").replace('/', '.');
+			
+			// パッケージ名 "scoremanager." を追加
+			String name = "scoremanager." + path.substring(path.lastIndexOf("/") + 1).replace(".action", "") + "Action";
+			
 			Action action=(Action)Class.forName(name).getDeclaredConstructor().newInstance();
 			action.execute(request, response);
 		} catch (Exception e) {
