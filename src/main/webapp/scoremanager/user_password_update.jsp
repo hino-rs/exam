@@ -24,6 +24,11 @@ label {
     font-size: 0.9em;
 }
 
+.readonly-text {
+    padding: 0 10px;
+    font-size: 1em;
+}
+
 input[type="text"] {
     width: 100%;
     box-sizing: border-box;
@@ -66,43 +71,41 @@ input[type="text"]:focus {
 .text-danger {
     color: #dc3545;
 }
-</style><!-- INSERT INTO teacher VALUES('admin', 'password', '大原花子', 'oom');-->
+</style>
     </c:param>
     <c:param name="content">
 
-    <h2 class="title">ユーザー情報登録</h2>
+    <h2 class="title">ユーザーパスワード変更</h2>
     
-    <form action="UserCreateExecute.action" method="post">
+    <a href="UserUpdate.action">基本情報を変更する場合はこちらから</a>
+    
+    <form action="UserPasswordUpdateExecute.action" method="post">
     
         <div class="form-group">
-            <label for="cd">ID</label>
-            <input type="text" id="cd" name="id" placeholder="IDを入力してください" required />
+            <label>変更するユーザーのID</label>
+            <div class="readonly-text"><c:out value="${id}" />さん</div>
+            <input type="hidden" name="id" value="${id}">
         </div>
-    
+        
         <c:if test='${not empty error}'>
             <p class='text-danger text-center mb-3'>${error}</p>
         </c:if>
         
+        <p>新しいパスワードと現在のパスワードの入力が必要です。</p>
+        <a href="#">パスワードをお忘れの場合は管理者までご連絡下さい。</a>
+        
         <div class="form-group">
-            <label for="cd">パスワード</label>
-            <input type="password" id="cd" name="password" placeholder="パスワードを入力してください" required />
-        </div>
-    
-        <div class="form-group">
-            <label for="name">名前</label>
-            <input type="text" id="name" name="name" placeholder="名前を入力してください" required />
+            <label>変更前のパスワード</label>
+            <input type="password" name="old_password" required >
         </div>
         
         <div class="form-group">
-	        <label>学校コード</label>
-	        <select name="school_cd" required>
-	        	<c:forEach var="sc" items="${schoolCodes}">
-	        		<option value="${sc}">${sc}</option>
-	        	</c:forEach>
-	        </select>
+            <label>新しいパスワード</label>
+            <input type="password" name="new_password" required >
         </div>
-    
-        <input type="submit" value="登録" class="btn-submit">
+        
+        
+        <input type="submit" value="変更" class="btn-submit">
     
     </form>
     

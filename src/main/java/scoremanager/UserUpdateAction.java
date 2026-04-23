@@ -1,5 +1,8 @@
 package scoremanager;
 
+import java.util.List;
+
+import dao.SchoolDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -19,6 +22,11 @@ public class UserUpdateAction extends Action {
 		request.setAttribute("id", id);
 		request.setAttribute("name", name);
 		request.setAttribute("schoolCd", schoolCd);
+		
+		SchoolDao dao = new SchoolDao();
+		
+		List<String> schoolCodes = dao.getAllSchoolCd();
+		request.setAttribute("schoolCodes", schoolCodes);
 		
 		request.getRequestDispatcher("user_update.jsp").forward(request, response);
 	}

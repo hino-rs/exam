@@ -98,8 +98,13 @@ input[type="text"]:focus {
         
         <div class="form-group">
             <label>学校コード</label>
-            <input type="text" name="school_cd" value="${schoolCd}" required >
+            <select name="school_cd" required>
+        		<c:forEach var="sc" items="${schoolCodes}">
+        			<option value="${sc}">${sc}</option>
+        		</c:forEach>
+        	</select>
         </div>
+        
         
         
         <input type="submit" value="変更" class="btn-submit">

@@ -99,6 +99,30 @@ public class TeacherDao extends DAO {
         return result == 1;
 	}
 	
+	public boolean updatePassword(String id, String oldPassword, String newPassword) throws Exception {
+		tool.Logger.dao("teacher update password");
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		Teacher t = login(id, oldPassword);
+		
+		if (t == null) {
+			return false;
+		} else {
+			st = con.prepareStatement("UPDATE teacher SET password=? WHERE id=?");
+			st.setString(1, newPassword);
+			st.setString(2, id);
+			
+			int result = st.executeUpdate();
+			
+			st.close();
+			con.close();
+			
+			return result == 1;
+		}
+	}
+	
 	public boolean delete(String id) throws Exception {
 		tool.Logger.dao("teacher delete");
 		
