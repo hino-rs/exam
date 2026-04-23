@@ -20,6 +20,9 @@ public class TestListAction extends Action {
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
         HttpSession session = req.getSession();
+        
+        // 前回の検索結果をクリア
+        session.removeAttribute("test_list");
 
         // ログイン中の教師取得
         Teacher teacher = (Teacher)session.getAttribute("loginUser");

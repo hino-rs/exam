@@ -24,6 +24,9 @@ public class TestRegistAction extends Action {
         System.out.println(">> TestRegistAction");
 
         HttpSession session = req.getSession();
+        
+        // 前回の検索結果をクリア
+        session.removeAttribute("test_list");
 
         // ログイン中の教師を取得
         Teacher teacher = (Teacher)session.getAttribute("loginUser");

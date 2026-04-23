@@ -104,40 +104,52 @@
 
             <!-- 検索結果一覧（横線だけ） -->
             <c:if test="${not empty test_list}">
-                <div class="mt-4">科目：${subject_name}（${f4}回）</div>
+            
+            	<form method="post" action="TestRegistExecute.action">
+            	
+	                <div class="mt-4">科目：${subject_name}（${f4}回）</div>
+	
+	                <table class="table table-bordered mt-3 table-horizontal-only">
+	                    <thead>
+	                        <tr>
+	                            <th>入学年度</th>
+	                            <th>クラス</th>
+	                            <th>学生番号</th>
+	                            <th>氏名</th>
+	                            <th>点数</th>
+	                        </tr>
+	                    </thead>
+	
+	                    <tbody>
+	                        <c:forEach var="t" items="${test_list}">
+	                            <tr>
+	                                <td>${t.student.entYear}</td>
+	                                <td>${t.student.classNum}</td>
+	                                <td>${t.student.no}</td>
+	                                <td>${t.student.name}</td>
+	                                <td>
+									    <input type="text"
+									           name="point_${t.student.no}"
+									           value="${t.point}"
+									           class="form-control score-input">
+									
+									    <!-- エラー表示 -->
+									    <c:if test="${not empty error_map[t.student.no]}">
+									        <div style="color:#ffbb33; font-size:0.9em; margin-top:4px;">
+									            ${error_map[t.student.no]}
+									        </div>
+									    </c:if>
+									</td>
 
-                <table class="table table-bordered mt-3 table-horizontal-only">
-                    <thead>
-                        <tr>
-                            <th>入学年度</th>
-                            <th>クラス</th>
-                            <th>学生番号</th>
-                            <th>氏名</th>
-                            <th>点数</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <c:forEach var="t" items="${test_list}">
-                            <tr>
-                                <td>${t.student.entYear}</td>
-                                <td>${t.student.classNum}</td>
-                                <td>${t.student.no}</td>
-                                <td>${t.student.name}</td>
-                                <td>
-                                    <input type="text"
-                                           name="point_${t.student.no}"
-                                           value="${t.point}"
-                                           class="form-control score-input">
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-
-                <div class="text-start mt-3">
-                    <button class="btn btn-secondary">登録して終了</button>
-                </div>
+	                            </tr>
+	                        </c:forEach>
+	                    </tbody>
+	                </table>
+	
+	                <div class="text-start mt-3">
+	                    <button class="btn btn-secondary">登録して終了</button>
+	                </div>
+ 				</form>
             </c:if>
 
         </section>
