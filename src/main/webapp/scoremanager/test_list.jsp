@@ -106,33 +106,6 @@
     科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
 	</div>
 	
-	<c:if test="${not empty testlist }">
-	    <table class="table table-bordered mt-4">
-	        <thead>
-	            <tr>
-	                <th>入学年度</th>
-	                <th>クラス</th>
-	                <th>学生番号</th>
-	                <th>氏名</th>
-	                <th>1回</th>
-	                <th>2回</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <c:forEach var="t" items="${testlist }">
-	                <tr>
-	                    <td>${t.entYear }</td>
-	                    <td>${t.classNum }</td>
-	                    <td>${t.studentNo }</td>
-	                    <td>${t.studentName }</td>
-	                    <td>${t.score1 }</td>
-	                    <td>${t.score2 }</td>
-	                </tr>
-	            </c:forEach>
-	        </tbody>
-	    </table>
-	</c:if>
-
 </section>
 </c:param>
 
