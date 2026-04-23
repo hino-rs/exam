@@ -24,8 +24,11 @@ public class TestRegistAction extends Action {
         System.out.println(">> TestRegistAction");
 
         HttpSession session = req.getSession();
+        
+        // 前回の検索結果をクリア
+        session.removeAttribute("test_list");
 
-        // ログイン中の教師
+        // ログイン中の教師を取得
         Teacher teacher = (Teacher)session.getAttribute("loginUser");
         School school = teacher.getSchool();
 
@@ -54,7 +57,7 @@ public class TestRegistAction extends Action {
 
         // 回数一覧（1〜5）
         List<Integer> numCountSet = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 2; i++) {
             numCountSet.add(i);
         }
         req.setAttribute("num_count_set", numCountSet);
@@ -83,6 +86,9 @@ public class TestRegistAction extends Action {
 
                 // 検索結果を JSP に渡す
                 req.setAttribute("test_list", list);
+                
+                // セッションにも保存（登録処理用）
+                session.setAttribute("test_list", list);
 
                 // 科目名を JSP に渡す
                 for (Subject s : subjects) {

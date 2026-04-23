@@ -17,23 +17,44 @@ public class TestDao extends DAO {
     // baseSql : JOIN して Test + Student + Subject + School をまとめて取得
 	// ------------------------------------------------------------
 	private static final String baseSql =
-		    "SELECT " +
-		    " t.student_no, " +					// 学生番号
-		    " t.subject_cd, " +					// 科目コード
-		    " t.school_cd, " +					// 学校コード
-		    " t.no, " +							// 回数	
-		    " t.point, " +						// 点数
-		    " t.class_num, " +			        // テストを受けたときのクラス	
-		    " s.name AS student_name, " +		// 学生名	
-		    " s.ent_year, " +					// 入学年度	
-		    " s.class_num AS student_class, " +	// 学生の現在のクラス
-		    " s.is_attend, " +					// 在籍フラグ
-		    " sub.name AS subject_name, " +		// 科目名
-		    " sch.name AS school_name " +		// 学校名
-		    "FROM test t " +					// テストテーブルを基点に JOIN
-		    "JOIN student s ON t.student_no = s.no " +      // 学生テーブルと JOIN	
-		    "JOIN subject sub ON t.subject_cd = sub.cd " +  // 科目テーブルと JOIN
-		    "JOIN school sch ON t.school_cd = sch.cd ";		// 学校テーブルと JOIN
+		    "SELECT "
+		  + " s.no AS student_no, "                 // 学生番号
+		  + " t.subject_cd, "                       // 科目コード
+		  + " t.school_cd, "                        // 学校コード
+		  + " t.no, "                               // 回数
+		  + " t.point, "                            // 点数（NULL = 未受験 → 空欄）
+		  + " t.class_num, "                        // テスト受験時のクラス
+		  + " s.name AS student_name, "             // 学生名
+		  + " s.ent_year, "                         // 入学年度
+		  + " s.class_num AS student_class, "       // 現在のクラス
+		  + " s.is_attend, "                        // 在籍フラグ
+		  + " sub.name AS subject_name, "           // 科目名
+		  + " sch.name AS school_name "             // 学校名
+		  + "FROM student s "                       // student を基点にする
+		  + "LEFT JOIN test t ON s.no = t.student_no " 			// test 未受験も表示
+		  + "LEFT JOIN subject sub ON t.subject_cd = sub.cd " 	// 科目
+		  + "LEFT JOIN school sch ON t.school_cd = sch.cd ";   	// 学校
+
+	
+//  テストテーブルを基点（保留）	
+//	private static final String baseSql =
+//		    "SELECT " +
+//		    " t.student_no, " +					// 学生番号
+//		    " t.subject_cd, " +					// 科目コード
+//		    " t.school_cd, " +					// 学校コード
+//		    " t.no, " +							// 回数	
+//		    " t.point, " +						// 点数
+//		    " t.class_num, " +			        // テストを受けたときのクラス	
+//		    " s.name AS student_name, " +		// 学生名	
+//		    " s.ent_year, " +					// 入学年度	
+//		    " s.class_num AS student_class, " +	// 学生の現在のクラス
+//		    " s.is_attend, " +					// 在籍フラグ
+//		    " sub.name AS subject_name, " +		// 科目名
+//		    " sch.name AS school_name " +		// 学校名
+//		    "FROM test t " +					// テストテーブルを基点に JOIN
+//		    "JOIN student s ON t.student_no = s.no " +      // 学生テーブルと JOIN
+//		    "JOIN subject sub ON t.subject_cd = sub.cd " +  // 科目テーブルと JOIN
+//		    "JOIN school sch ON t.school_cd = sch.cd ";		// 学校テーブルと JOIN
 
     // ------------------------------------------------------------
     // get : テスト1件を取得
@@ -81,37 +102,69 @@ public class TestDao extends DAO {
 
         return list;
     }
+	 // ------------------------------------------------------------
+	 // filter : 条件検索（入学年度・クラス・科目・回数・学校）
+	 // student 基点の baseSql
+	 // ------------------------------------------------------------
+	 public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school) throws Exception {
+	
+	     Connection con = getConnection();
+	     PreparedStatement st = con.prepareStatement(
+		    baseSql +
+		    " WHERE s.ent_year = ? "
+		  + "   AND s.class_num = ? "
+		  + "   AND (t.subject_cd = ? OR t.subject_cd IS NULL) "
+		  + "   AND (t.no = ? OR t.no IS NULL) "
+		  + "   AND (t.school_cd = ? OR t.school_cd IS NULL) "
+		 );
+	
+	     st.setInt(1, entYear);
+	     st.setString(2, classNum);
+	     st.setString(3, subject.getCd());
+	     st.setInt(4, num);
+	     st.setString(5, school.getCd());
+	
+	     ResultSet rs = st.executeQuery();
+	     List<Test> list = postFilter(rs, school);
+	
+	     rs.close();
+	     st.close();
+	     con.close();
+	
+	     return list;
+	 }
 
-    // ------------------------------------------------------------
-    // filter : 条件検索（入学年度・クラス・科目・回数・学校）
-    // ------------------------------------------------------------
-    public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school) throws Exception {
-
-        Connection con = getConnection();
-        PreparedStatement st = con.prepareStatement(
-            baseSql +
-            " WHERE s.ent_year = ? "
-            + "AND s.class_num = ? "
-            + "AND t.subject_cd = ? "
-            + "AND t.no = ? "
-            + "AND t.school_cd = ?"
-        );
-
-        st.setInt(1, entYear);
-        st.setString(2, classNum);
-        st.setString(3, subject.getCd());
-        st.setInt(4, num);
-        st.setString(5, school.getCd());
-
-        ResultSet rs = st.executeQuery();
-        List<Test> list = postFilter(rs, school);
-
-        rs.close();
-        st.close();
-        con.close();
-
-        return list;
-    }
+//    // ------------------------------------------------------------
+//    // filter : 条件検索（入学年度・クラス・科目・回数・学校）
+//    // test 基点 baseSql(保留) 	 
+//    // ------------------------------------------------------------
+//    public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school) throws Exception {
+//
+//        Connection con = getConnection();
+//        PreparedStatement st = con.prepareStatement(
+//            baseSql +
+//            " WHERE s.ent_year = ? "
+//            + "AND s.class_num = ? "
+//            + "AND t.subject_cd = ? "
+//            + "AND t.no = ? "
+//            + "AND t.school_cd = ?"
+//        );
+//
+//        st.setInt(1, entYear);
+//        st.setString(2, classNum);
+//        st.setString(3, subject.getCd());
+//        st.setInt(4, num);
+//        st.setString(5, school.getCd());
+//
+//        ResultSet rs = st.executeQuery();
+//        List<Test> list = postFilter(rs, school);
+//
+//        rs.close();
+//        st.close();
+//        con.close();
+//
+//        return list;
+//    }
 
     // ------------------------------------------------------------
     // save : テスト結果をまとめて保存

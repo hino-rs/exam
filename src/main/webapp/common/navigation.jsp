@@ -3,7 +3,7 @@
 
 <!-- サイドバー（ログイン後のみ表示） -->
 <c:if test="${not empty sessionScope.loginUser}">
-    <div id="sidebar" style="width: 200px;">
+    <div id="sidebar" style="width: 200px; margin-left: 20px;">
 
         <nav>
             <ul style="list-style: none; padding-left: 0;">
