@@ -7,7 +7,7 @@
 
 <form action="StudentCreateExecute.action" method="post">
 
-    <label>入学年度</label>
+    <label>入学年度</label><br>
     <select class="form-select" id="student-f1-select" name="ent_year">
                             <option value="0">--</option>
                     <c:forEach var="year" items="${ent_year_set}">
@@ -16,26 +16,33 @@
                         </option>
                     </c:forEach>
                 </select>
-     <br><br>
+    
                 
 	 <c:if test='${not empty error1}'>
+	 <font color="#fcc800">
             <p class='text-danger text-center mb-3'>${error1}</p>
+     </font>
      </c:if>
 	
+	 <br>
 
-    <label>学生番号</label>
+    <label>学生番号</label><br>
     <input type="text" name="no" value="${no}" maxlength="10" required placeholder="学生番号を入力してください">
+	 <div>
 	 <c:if test='${not empty error2}'>
+	 <font color="#fcc800">
             <p class='text-danger text-center mb-3'>${error2}</p>
+     </font>
      </c:if>
-	<br><br>
+     </div>
+	<br>
 
-    <label>氏名</label>
+    <label>氏名</label><br>
     <input type="text" name="name" value="${name}" maxlength="30" required placeholder="氏名を入力してください">
 
-	<br><br>
+	<br>
 
-    <label>クラス</label>
+    <label>クラス</label><br>
     <select name="class_num">
         <c:forEach var="num" items="${class_num}">
         <option value="${num}">${num}</option>

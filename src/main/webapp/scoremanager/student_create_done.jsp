@@ -5,7 +5,7 @@
 
 <p>登録が完了しました</p>
 
-<a href="student_create.jsp">戻る</a>
-<a href="student_list.jsp">学生一覧</a>
+<a href="StudentCreate.action">戻る</a>
+<a href="StudentList.action">学生一覧</a>
 
 <%@ include file="/common/footer.jsp" %>
