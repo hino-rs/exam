@@ -77,7 +77,7 @@ input[type="text"]:focus {
 
     <h2 class="title">ユーザー情報変更</h2>
     
-    <a href="UserPasswordUpdate.action">パスワードを変更する場合はこちらから</a>
+    <a href="UserPasswordUpdate.action?id=${id}">パスワードを変更する場合はこちらから</a>
     
     <form action="UserUpdateExecute.action" method="post">
     

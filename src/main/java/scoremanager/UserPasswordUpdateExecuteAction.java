@@ -17,6 +17,8 @@ public class UserPasswordUpdateExecuteAction extends Action {
 		String oldPassword = (String) request.getParameter("old_password");
 		String newPassword = (String) request.getParameter("new_password");
 		
+		tool.Logger.debug(id+" "+oldPassword+" "+newPassword);
+		
 		TeacherDao tDao = new TeacherDao();
 		if (tDao.updatePassword(id, oldPassword, newPassword)) {
 			request.getRequestDispatcher("user_password_update_done.jsp").forward(request, response);
