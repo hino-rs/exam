@@ -6,26 +6,26 @@ public class Logger {
 	}
 	
 	public static void info(String text) {
-		out("\u001b[00;32m"+text);
+		out("\u001b[00;32m"+"[INFO!]"+text);
 	}
 	
 	public static void warn(String text) {
-		out("\u001b[00;33m"+text);
+		out("\u001b[00;33m"+"[WARN!]"+text);
 	}
 	
 	public static void error(String text) {
-		out("\u001b[00;31m"+text);
+		out("\u001b[00;31m"+"[ERROR!]"+text);
 	}
 	
 	public static void debug(String text) {
-		out("\u001b[00;36m"+text);
+		out("\u001b[00;36m"+"[DEBUG!]"+text);
 	}
 	
 	public static void execute(String text) {
-		out("\u001b[00;46m"+text);
+		out("\u001b[00;46m"+"[EXECUTE!]"+text);
 	}
 	
 	public static void dao(String text) {
-		out("\u001b[00;45m"+text);
+		out("\u001b[00;45m"+"[DAO!]"+text);
 	}
 }
