@@ -36,7 +36,7 @@
     <c:param name="content">
         <section class="me-4">
 
-            <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">成績管理</h2>
+            <h2 class="h4 mb-2" style="background-color:#f5f5f5; padding:10px 15px;">成績管理</h2>
 
             <!-- 検索欄（外枠あり） -->
             <form method="get" action="TestRegist.action">
