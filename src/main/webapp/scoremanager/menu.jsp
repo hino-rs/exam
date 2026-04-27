@@ -52,7 +52,7 @@
 		        <div class="col-4">
 		            <div class="d-flex align-items-center justify-content-center mb-4 p-4 rounded shadow"
 		                 style="height: 10rem; background-color: #e1d5e7;">
-		                <a href="">クラス管理</a>
+		                <a href="ClassNumList.action">クラス管理</a>
 		            </div>
 		        </div>
 		    </div>
