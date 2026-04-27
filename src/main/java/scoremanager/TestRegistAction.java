@@ -47,15 +47,16 @@ public class TestRegistAction extends Action {
         // セレクトボックス用データ
         // クラス一覧
         ClassNumDao cDao = new ClassNumDao();
-        List<String> classList = cDao.filter(school);
-        req.setAttribute("class_num_set", classList);
+//        List<String> classList = cDao.filter(school);
+//        req.setAttribute("class_num_set", classList);
+        req.setAttribute("class_num_set", cDao.filter(school));
 
         // 科目一覧
         SubjectDao sDao = new SubjectDao();
         List<Subject> subjects = sDao.filter(school);
         req.setAttribute("school_subject_set", subjects);
 
-        // 回数一覧（1〜5）
+        // 回数一覧（1〜2）
         List<Integer> numCountSet = new ArrayList<>();
         for (int i = 1; i <= 2; i++) {
             numCountSet.add(i);
@@ -70,24 +71,42 @@ public class TestRegistAction extends Action {
             entYearSet.add(i);
         }
         req.setAttribute("ent_year_set", entYearSet);
+        
+        // 未選択チェック f1〜f4 が null(初回) の場合はエラーを出さない
+        if (f1 != null && f2 != null && f3 != null && f4 != null) {
+
+            // 空文字 "" が1つでもある場合はエラーメッセージを返す
+            if (f1.isEmpty() || f2.isEmpty() || f3.isEmpty() || f4.isEmpty()) {
+
+                req.setAttribute("error_message", "入学年度とクラスと科目と回数を選択してください");
+
+                // JSP へ
+                req.getRequestDispatcher("test_regist.jsp").forward(req, res);
+                return;
+            }
+        }
 
         // 検索処理（f1〜f4 が揃っているときだけ）
-        if (f1 != null && f2 != null && f3 != null && f4 != null &&
-                !f1.equals("0") && !f2.equals("0") && !f3.equals("0") && !f4.equals("0")) {
+        if (f1 != null && !f1.isEmpty() &&
+        	    f2 != null && !f2.isEmpty() &&
+        	    f3 != null && !f3.isEmpty() &&
+        	    f4 != null && !f4.isEmpty()) {
 
-                int entYear = Integer.parseInt(f1);
-                int num = Integer.parseInt(f4);
+	        	int entYear = Integer.parseInt(f1.trim());
+	        	int num = Integer.parseInt(f4.trim());
 
-                Subject subject = new Subject();
+	        	// 科目オブジェクト作成
+	        	Subject subject = new Subject();
                 subject.setCd(f3);
 
+                // 成績一覧を取得
                 TestDao tDao = new TestDao();
                 List<Test> list = tDao.filter(entYear, f2, subject, num, school);
 
                 // 検索結果を JSP に渡す
                 req.setAttribute("test_list", list);
                 
-                // セッションにも保存（登録処理用）
+                // セッション保存（登録処理用）
                 session.setAttribute("test_list", list);
 
                 // 科目名を JSP に渡す

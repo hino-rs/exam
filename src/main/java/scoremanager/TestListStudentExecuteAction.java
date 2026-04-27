@@ -1,8 +1,6 @@
 package scoremanager;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import bean.Student;
 import bean.TestListStudent;
@@ -19,15 +17,11 @@ public class TestListStudentExecuteAction extends Action {
 
         // 学生番号を取得
         String studentNo = request.getParameter("studentNo");
-
-        Map<String, String> errors = new HashMap<>();
-
-        // 入力チェック
+        
+        // 入力チェック 未入力の場合はエラーメッセージを返す
         if (studentNo == null || studentNo.isEmpty()) {
-            errors.put("studentNo", "学生番号を入力してください");
-            request.setAttribute("errors", errors);
-
-            request.getRequestDispatcher("/scoremanager/test_list_student.jsp").forward(request, response);
+        	request.setAttribute("error_message", "学生番号を入力してください");
+            request.getRequestDispatcher("/scoremanager/test_list.jsp").forward(request, response);
             return;
         }
 
@@ -36,8 +30,7 @@ public class TestListStudentExecuteAction extends Action {
         Student student = sDao.get(studentNo);
 
         if (student == null) {
-            errors.put("studentNo", "該当する学生が見つかりません");
-            request.setAttribute("errors", errors);
+        	request.setAttribute("error_message", "該当する学生が見つかりませんでした。");
 
             request.getRequestDispatcher("/scoremanager/test_list_student.jsp").forward(request, response);
             return;

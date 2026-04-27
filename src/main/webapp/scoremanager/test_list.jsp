@@ -1,7 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 
-<c:import url="/common/base.jsp"><c:param name="title">成績参照</c:param>
+<c:import url="/common/base.jsp"><c:param name="title">得点管理システム</c:param>
 
 <c:param name="content">
 <section class="me-4">
@@ -93,7 +93,8 @@
                         <label class="form-label" style="font-size:0.9rem;">学生番号</label>
                         <input type="text" name="studentNo" value="${param.studentNo}"
                                class="form-control" style="width:250px;"
-                               placeholder="学生番号を入力してください">
+                               placeholder="学生番号を入力してください"
+                               required>
                     </div>
 
                     <!-- 検索ボタン -->
@@ -109,7 +110,7 @@
     </fieldset>
 
     <!-- 利用方法案内メッセージ -->
-    <div style="color:#33bbff; margin-top:10px;">
+    <div style="color:#33bbff;">
     科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
 	</div>
 	

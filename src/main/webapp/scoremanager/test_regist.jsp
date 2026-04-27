@@ -37,7 +37,14 @@
         <section class="me-4">
 
             <h2 class="h4 mb-2" style="background-color:#f5f5f5; padding:10px 15px;">成績管理</h2>
-
+            
+            <!-- エラーメッセージ -->
+            <c:if test="${not empty error_message}">
+			    <div style="color:red; font-weight:bold;">
+			        ${error_message}
+			    </div>
+			</c:if>
+			            
             <!-- 検索欄（外枠あり） -->
             <form method="get" action="TestRegist.action">
                 <div class="row mx-3 mb-3 py-2 align-items-center rounded" id="filter">
@@ -46,7 +53,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f1-select">入学年度</label>
                         <select class="form-select" id="student-f1-select" name="f1">
-                            <option value="0">--</option>
+                            <option value="">--</option>
                     <c:forEach var="year" items="${ent_year_set}">
                         <option value="${year}" <c:if test="${year==f1}">selected</c:if>>
                             ${year}
@@ -59,7 +66,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f2-select">クラス</label>
                         <select class="form-select" id="student-f2-select" name="f2">
-                            <option value="0">--</option>
+                            <option value="">--</option>
                             <c:forEach var="num" items="${class_num_set}">
                                 <option value="${num}" <c:if test="${num == f2}">selected</c:if>>
                                     ${num}
@@ -72,7 +79,7 @@
                     <div class="col-4">
                         <label class="form-label" for="student-f3-select">科目</label>
                         <select class="form-select" id="student-f3-select" name="f3">
-                            <option value="0">--</option>
+                            <option value="">--</option>
                             <c:forEach var="subject" items="${school_subject_set}">
                                 <option value="${subject.cd}" <c:if test="${subject.cd == f3}">selected</c:if>>
                                     ${subject.name}
@@ -85,7 +92,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f4-select">回数</label>
                         <select class="form-select" id="student-f4-select" name="f4">
-                            <option value="0">--</option>
+                            <option value="">--</option>
                             <c:forEach var="count" items="${num_count_set}">
                                 <option value="${count}" <c:if test="${count == f4}">selected</c:if>>
                                     ${count}
