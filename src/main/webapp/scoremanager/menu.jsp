@@ -36,7 +36,14 @@
 		                <a href="SubjectList.action">科目管理</a>
 		            </div>
 		        </div>
-		
+				
+				<div class="col">
+		            <div class="d-flex align-items-center justify-content-center mb-4 p-4 rounded shadow"
+		                 style="height: 10rem; background-color: #f7c6c7;">
+		                <a href="ClassNumList.action">クラス管理</a>
+		            </div>
+		        </div>
+		        
 				<a href="UserList.action">ユーザー管理</a>
 		    </div>
 		</section>
