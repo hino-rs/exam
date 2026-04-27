@@ -85,7 +85,7 @@ input[type="text"]:focus {
         
         <div class="form-group">
             <label for="cd">パスワード</label>
-            <input type="password" id="cd" name="password" placeholder="パスワードを入力してください" required />
+            <input type="password" id="cd" name="password" placeholder="パスワードを入力してください" required minlength="8"/>
         </div>
     
         <div class="form-group">

@@ -153,4 +153,22 @@ public class SubjectDao extends DAO {
 		
 		return result;
 	}
+	
+	public boolean isUsed(String cd) throws Exception {
+		tool.Logger.dao("subject isUsed");
+		
+		String sql = "SELECT TRUE FROM test WHERE subject_cd = ?";
+		
+		try (Connection con = getConnection();
+			PreparedStatement st = con.prepareStatement(sql)) {
+				
+			st.setString(1, cd);
+			try (ResultSet rs = st.executeQuery()) {
+				if (rs.next()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
