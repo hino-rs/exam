@@ -23,7 +23,7 @@
                         <div class="row g-4">
                             <div class="col-auto">
                                 <label class="form-label" style="font-size:0.9rem;">入学年度</label>
-                                <select name="f1" class="form-select" style="width:200px;" required>
+                                <select name="f1" class="form-select" style="width:200px;">
                                     <option value="">--------</option>
                                     <c:forEach var="y" items="${ent_year_set}">
                                         <option value="${y}" <c:if test="${y == f1}">selected</c:if>>${y}</option>
@@ -33,7 +33,7 @@
 
                             <div class="col-auto">
                                 <label class="form-label" style="font-size:0.9rem;">クラス</label>
-                                <select name="f2" class="form-select" style="width:200px;" required>
+                                <select name="f2" class="form-select" style="width:200px;">
                                     <option value="">--------</option>
                                     <c:forEach var="c" items="${class_num_set}">
                                         <option value="${c}" <c:if test="${c == f2}">selected</c:if>>${c}</option>
@@ -43,7 +43,7 @@
 
                             <div class="col-auto">
                                 <label class="form-label" style="font-size:0.9rem;">科目</label>
-                                <select name="f3" class="form-select" style="width:200px;" required>
+                                <select name="f3" class="form-select" style="width:200px;">
                                     <option value="">--------</option>
                                     <c:forEach var="s" items="${school_subject_set}">
                                         <option value="${s.cd}" <c:if test="${s.cd == f3}">selected</c:if>>${s.name}</option>
@@ -54,6 +54,10 @@
                             <div class="col-auto d-flex align-items-end">
                                 <button type="submit" class="btn btn-secondary px-4">検索</button>
                             </div>
+                            
+                            <c:if test="${not empty inErr}">
+								${inErr}
+							</c:if>
                         </div>
                     </div>
                 </div>
@@ -74,12 +78,13 @@
                                 <input type="text" name="studentNo" value="${param.studentNo}"
                                        class="form-control" style="width:250px;"
                                        placeholder="学生番号を入力してください"
-                                       required>
+                                       >
                             </div>
 
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-secondary px-4">検索</button>
                             </div>
+                    
                         </div>
                     </div>
                 </div>

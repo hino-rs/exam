@@ -77,6 +77,10 @@ th, td {
                         <button type="submit" class="btn btn-secondary px-4">検索</button>
                     </div>
 
+					<c:if test="${not empty inErr}">
+						${inErr}
+					</c:if>
+					
                 </div>
             </div>
         </form>
@@ -117,7 +121,13 @@ th, td {
 </section>
 <section class="mt-3">
 
-	<table>
+<c:choose>
+	<c:when test="${not empty outErr}">
+		${outErr}
+	</c:when>
+	
+	<c:otherwise>
+		<table>
 		<thead>
 			<tr>
 				<th>入学年度</th>
@@ -141,6 +151,10 @@ th, td {
 			</c:forEach>
 		</tbody>
 	</table>
+	</c:otherwise>
+</c:choose>
+
+	
 </section>
 </c:param>
 
