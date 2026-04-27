@@ -44,7 +44,7 @@
 		                 style="height: 10rem; background-color: #d5e8d4;">
 		                <div>ユーザー管理</div>
 		                <div><a href="UserList.action">ユーザー登録</a></div>
-		                <div><a href="UserList.action">ユーザー更新</a></div>
+		                <div><a href="UserUpdate.action">ユーザー更新</a></div>
 		            </div>
 		        </div>
 		
