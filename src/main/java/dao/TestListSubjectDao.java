@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bean.School;
 import bean.Subject;
 import bean.TestListSubject;
 
@@ -43,10 +42,10 @@ public class TestListSubjectDao extends DAO {
 		int entYear,
 		String classNum,
 		Subject subject,
-		School school
+		String schoolCd
 	) throws Exception {
 		tool.Logger.dao("TestListSubject filter");
-		
+
 		TestListSubject  t = null;
 		List<TestListSubject> list = new ArrayList<>();
 		
@@ -54,6 +53,10 @@ public class TestListSubjectDao extends DAO {
 		PreparedStatement st;
 		
 		st = con.prepareStatement(baseSql);
+		st.setString(1, subject.getCd());
+		st.setString(2, schoolCd);
+		st.setInt(3, entYear);
+		st.setString(4, classNum);
 		ResultSet rs = st.executeQuery();
 		
 		while (rs.next()) {

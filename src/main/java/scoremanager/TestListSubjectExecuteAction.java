@@ -29,7 +29,7 @@ public class TestListSubjectExecuteAction extends Action {
 		School school = (School)session.getAttribute("loginUserSchool");
 		Subject subject = sDao.get(subjectCd);
 		
-		request.setAttribute("test_list_subject", tDao.filter(entYear, classNum, subject, school));
-		request.getRequestDispatcher("").forward(request, response);
+		request.setAttribute("data", tDao.filter(entYear, classNum, subject, school.getCd()));
+		request.getRequestDispatcher("test_list_subject.jsp").forward(request, response);
 	}
 }
