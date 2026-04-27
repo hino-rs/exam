@@ -96,6 +96,8 @@ public class StudentDao extends DAO {
 		
 		if (isAttend) {
 			conditionIsAttend = "and is_attend=true";
+		}else {
+			conditionIsAttend = "and is_attend=false";
 		}
 		
 		try {
@@ -144,6 +146,8 @@ public class StudentDao extends DAO {
 		
 		if (isAttend) {
 			conditionIsAttend = "and is_attend=true";
+		}else {
+			conditionIsAttend = "and is_attend=false";
 		}
 		
 		try {
@@ -175,7 +179,7 @@ public class StudentDao extends DAO {
 		return list;
 	}
 	
-	// 学校, 入学した年, 在席 で絞り込み
+	//  在席 で絞り込み
 	public List<Student> filter(
 		School school,
 		boolean isAttend
@@ -189,6 +193,8 @@ public class StudentDao extends DAO {
 		
 		if (isAttend) {
 			conditionIsAttend = "and is_attend=true";
+		}else {
+			conditionIsAttend = "and is_attend=false";
 		}
 		
 		try {
