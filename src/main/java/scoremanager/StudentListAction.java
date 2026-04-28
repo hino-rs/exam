@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import bean.Student;
-import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
-import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -33,8 +31,10 @@ public class StudentListAction extends Action {
 
         // 検索条件の実体
         int entYear = 0;
-        boolean isAttend = false;
+        boolean isAttend = true;
+        
 
+        
         // 検索結果の学生一覧
         List<Student> students = null;
 
@@ -45,15 +45,12 @@ public class StudentListAction extends Action {
         // DAO の準備（必ず最初に宣言）
         StudentDao sDao = new StudentDao();
         ClassNumDao cNumDao = new ClassNumDao();
-        SubjectDao subjectDao = new SubjectDao();
 
         // クラス一覧（学校ごと）
         List<String> classNumList = cNumDao.filter(teacher.getSchool());
         req.setAttribute("class_num_set", classNumList);
-
-        // 科目一覧（学校ごと）
-        List<Subject> subjectList = subjectDao.filter(teacher.getSchool());
-        req.setAttribute("school_subject_set", subjectList);
+        
+        
 
         // 回数一覧（1〜5）
         List<Integer> numCountSet = new ArrayList<>();
@@ -69,17 +66,32 @@ public class StudentListAction extends Action {
         entYearStr = req.getParameter("f1");
         classNum = req.getParameter("f2");
         isAttendStr = req.getParameter("f3");
-
+        
+     // 入学年度の選択肢（現在の年から過去10年分）
+        List<Integer> entYearSet = new ArrayList<>();
+        for (int i = year - 10; i <= year; i++) {
+            entYearSet.add(i);
+        }
+        
+        if (entYearStr == null && classNum == null && isAttendStr == null) {
+        	 List<Student> all = new ArrayList<>();
+        	    all.addAll(sDao.filter(teacher.getSchool(), true));
+        	    all.addAll(sDao.filter(teacher.getSchool(), false));
+        	    students = all;
+        	    
+        	    req.setAttribute("students", students);       // 検索結果
+                req.setAttribute("ent_year_set", entYearSet); // 入学年度選択肢
+        	    
+        	    req.getRequestDispatcher("student_list.jsp").forward(req, res);
+        } else {
+            isAttend = (isAttendStr != null);
+        }
         // 入学年度が指定されていれば数値に変換
         if (entYearStr != null && !entYearStr.isEmpty()) {
             entYear = Integer.parseInt(entYearStr);
         }
 
-        // 入学年度の選択肢（現在の年から過去10年分）
-        List<Integer> entYearSet = new ArrayList<>();
-        for (int i = year - 10; i <= year; i++) {
-            entYearSet.add(i);
-        }
+        
 
         // 学生検索
         if (entYear != 0 && classNum != null && !classNum.equals("0")) {
@@ -104,12 +116,8 @@ public class StudentListAction extends Action {
         // 入学年度とクラス番号を画面に戻す
         req.setAttribute("f1", entYear);
         req.setAttribute("f2", classNum);
-
-        // 在学フラグがチェックされていれば true にする
-        if (isAttendStr != null) {
-            isAttend = true;
-            req.setAttribute("f3", isAttendStr);
-        }
+        req.setAttribute("f3", isAttendStr);
+        
 
         // JSP に渡すデータをセット
         req.setAttribute("students", students);       // 検索結果

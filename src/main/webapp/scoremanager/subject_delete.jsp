@@ -56,7 +56,7 @@
         <input type="hidden" name="name" value="${name}">
         
         <p class="confirm-text">「${name}(${cd})」を削除してもよろしいですか</p>
-        
+        <font color="orange"><c:if test="${alreadyUsed}">${name}は既にテストで使われている科目です。この科目を削除するには、先に関連するテストの履歴を削除する必要があります。</c:if></font>     
         <input type="submit" value="削除" name="delete" class="btn-danger">
     
     </form>

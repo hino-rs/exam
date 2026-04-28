@@ -31,7 +31,13 @@ public class SubjectDeleteExecuteAction extends Action {
 		
 		SubjectDao dao = new SubjectDao();
 		
-		if (dao.delete(s)) {
+		if (dao.isUsed(s.getCd())) {
+			tool.Logger.warn("科目はテストで既に使われています。");
+			request.setAttribute("alreadyUsed", true);
+			request.setAttribute("name", name);
+			request.setAttribute("cd", cd);
+			request.getRequestDispatcher("subject_delete.jsp").forward(request, response);
+		} else if (dao.delete(s)) {
 			tool.Logger.info("科目削除に成功");
 			request.getRequestDispatcher("subject_delete_done.jsp").forward(request, response);
 		} else {

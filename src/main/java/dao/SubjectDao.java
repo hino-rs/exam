@@ -118,21 +118,19 @@ public class SubjectDao extends DAO {
 	}
 	
 	public boolean isUnique(String cd) throws Exception {
-		Connection con = getConnection();
-		PreparedStatement st = null;
+		String sql = "SELECT TRUE FROM subject WHERE cd = ?";
 		
-		st = con.prepareStatement("SELECT TRUE FROM subject WHERE cd = ?");	
-		st.setString(1, cd);
-		
-		ResultSet rs = st.executeQuery();
-		
-		st.close();
-		con.close();
-		
-		if (rs.next()) {
-			return false;
+		try (Connection con = getConnection();
+			 PreparedStatement st = con.prepareStatement(sql)) {
+			
+			st.setString(1, cd);
+			try (ResultSet rs = st.executeQuery()) {
+				if (rs.next()) {
+					return false;
+				}
+			}
 		}
-		return true;	
+		return true;
 	}
 	
 	public boolean delete(Subject subject) throws Exception {
@@ -154,5 +152,23 @@ public class SubjectDao extends DAO {
 		con.close();
 		
 		return result;
+	}
+	
+	public boolean isUsed(String cd) throws Exception {
+		tool.Logger.dao("subject isUsed");
+		
+		String sql = "SELECT TRUE FROM test WHERE subject_cd = ?";
+		
+		try (Connection con = getConnection();
+			PreparedStatement st = con.prepareStatement(sql)) {
+				
+			st.setString(1, cd);
+			try (ResultSet rs = st.executeQuery()) {
+				if (rs.next()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
