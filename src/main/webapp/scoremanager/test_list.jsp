@@ -56,6 +56,7 @@
                             </div>
                             
                             <c:if test="${not empty inErr}">
+                            	<div style="color:#ffbb33; font-size:0.9em; margin-top:4px;">
 								${inErr}
 							</c:if>
                         </div>
@@ -78,7 +79,7 @@
                                 <input type="text" name="studentNo" value="${param.studentNo}"
                                        class="form-control" style="width:250px;"
                                        placeholder="学生番号を入力してください"
-                                       >
+                                       required>
                             </div>
 
                             <div class="col-auto">

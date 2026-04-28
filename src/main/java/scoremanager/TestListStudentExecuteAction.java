@@ -18,12 +18,12 @@ public class TestListStudentExecuteAction extends Action {
         // 学生番号を取得
         String studentNo = request.getParameter("studentNo");
         
-        // 入力チェック 未入力の場合はエラーメッセージを返す
-        if (studentNo == null || studentNo.isEmpty()) {
-        	request.setAttribute("error_message", "学生番号を入力してください");
-            request.getRequestDispatcher("/scoremanager/test_list.jsp").forward(request, response);
-            return;
-        }
+//        // 入力チェック 未入力の場合はエラーメッセージを返す
+//        if (studentNo == null || studentNo.isEmpty()) {
+//        	request.setAttribute("error_message", "学生番号を入力してください");
+//            request.getRequestDispatcher("/scoremanager/test_list.jsp").forward(request, response);
+//            return;
+//        }
 
         // 学生番号の存在チェック
         StudentDao sDao = new StudentDao();

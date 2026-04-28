@@ -85,6 +85,11 @@
 	                    <div class="col-auto d-flex align-items-end">
 	                        <button type="submit" class="btn btn-secondary px-4">検索</button>
 	                    </div>
+	                    
+                        <c:if test="${not empty inErr}">
+                          	<div style="color:#ffbb33; font-size:0.9em; margin-top:4px;">
+							${inErr}
+						</c:if>
 	
 	                </div>
 	            </div>
