@@ -67,8 +67,22 @@ public class StudentListAction extends Action {
         classNum = req.getParameter("f2");
         isAttendStr = req.getParameter("f3");
         
+     // 入学年度の選択肢（現在の年から過去10年分）
+        List<Integer> entYearSet = new ArrayList<>();
+        for (int i = year - 10; i <= year; i++) {
+            entYearSet.add(i);
+        }
+        
         if (entYearStr == null && classNum == null && isAttendStr == null) {
-            students = sDao.filter(teacher.getSchool(), true) ; 
+        	 List<Student> all = new ArrayList<>();
+        	    all.addAll(sDao.filter(teacher.getSchool(), true));
+        	    all.addAll(sDao.filter(teacher.getSchool(), false));
+        	    students = all;
+        	    
+        	    req.setAttribute("students", students);       // 検索結果
+                req.setAttribute("ent_year_set", entYearSet); // 入学年度選択肢
+        	    
+        	    req.getRequestDispatcher("student_list.jsp").forward(req, res);
         } else {
             isAttend = (isAttendStr != null);
         }
@@ -77,11 +91,7 @@ public class StudentListAction extends Action {
             entYear = Integer.parseInt(entYearStr);
         }
 
-        // 入学年度の選択肢（現在の年から過去10年分）
-        List<Integer> entYearSet = new ArrayList<>();
-        for (int i = year - 10; i <= year; i++) {
-            entYearSet.add(i);
-        }
+        
 
         // 学生検索
         if (entYear != 0 && classNum != null && !classNum.equals("0")) {
