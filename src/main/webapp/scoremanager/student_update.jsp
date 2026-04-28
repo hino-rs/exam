@@ -138,7 +138,7 @@ input[type="text"]:focus, select:focus {
     
     </form>
     
-    <a href="SutudentList.action" class="back-link">戻る</a>
+    <a href="StudentList.action" class="back-link">戻る</a>
 
     </c:param>
 </c:import>
