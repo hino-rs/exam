@@ -83,7 +83,7 @@ public class ClassNumDao extends DAO {
     }
 
     // クラス名を変更（UPDATE）
-    public boolean save(ClassNum classNum, String newClassNum) throws Exception {
+    public boolean update(ClassNum classNum, String newClassNum) throws Exception {
 
         Connection con = getConnection();
         PreparedStatement st = con.prepareStatement(
@@ -102,4 +102,65 @@ public class ClassNumDao extends DAO {
         return result == 1;
     }
     
+    public List<ClassNum> getAll() throws Exception {
+		tool.Logger.dao("ClassNum getAll");
+		
+		ClassNum c = null;
+		List<ClassNum> list = new ArrayList<>();
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("SELECT * FROM class_num");
+		ResultSet rs = st.executeQuery();
+		
+		SchoolDao dao = new SchoolDao();
+		
+		while (rs.next()) {
+			c = new ClassNum();
+			c.setClass_num(rs.getString("class_num"));
+			c.setSchool(dao.get(rs.getString("school_cd")));
+			list.add(c);
+		}
+		
+		st.close();
+		con.close();
+		return list;
+	}
+    
+    public boolean create(ClassNum classnum) throws Exception {
+		tool.Logger.dao("ClassNum create");
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("INSERT INTO class_num VALUES(?,?,?,?)");
+		st.setString(1, classnum.getClass_num());
+		st.setString(2, classnum.getSchool().getCd());
+		
+		int result = st.executeUpdate();
+		
+		st.close();
+		con.close();
+		
+		return result == 1;
+	}
+    
+    public boolean update(ClassNum classnum) throws Exception {
+		tool.Logger.dao("classnum update");
+		
+		Connection con = getConnection();
+		PreparedStatement st;
+		
+		st = con.prepareStatement("UPDATE class_num SET class_num=? WHERE class_num=? and school_cd=?");
+		st.setString(1, classnum.getClass_num());
+		st.setString(2, classnum.getSchool().getCd());
+		
+		int result = st.executeUpdate();
+
+        st.close();
+        con.close();
+
+        return result == 1;
+	}
 }
