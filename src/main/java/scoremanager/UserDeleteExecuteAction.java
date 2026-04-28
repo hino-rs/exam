@@ -1,8 +1,10 @@
 package scoremanager;
 
+import bean.Teacher;
 import dao.TeacherDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class UserDeleteExecuteAction extends Action {
@@ -12,12 +14,20 @@ public class UserDeleteExecuteAction extends Action {
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 		tool.Logger.execute("UserDeleteExecuteAction");
+		HttpSession session = request.getSession();
+		Teacher loginUser = (Teacher) session.getAttribute("loginUser");
 		
-		String id = (String) request.getParameter("id");
+		String loginId = loginUser.getId();
+		String deleteId = (String) request.getParameter("id");
+		
+		if (loginId.equals(deleteId)) {
+			request.setAttribute("targetIsYourself", "あなた自身を消すことはできません");
+			request.getRequestDispatcher("user_delete.jsp").forward(request, response);
+		}
 		
 		TeacherDao dao = new TeacherDao();
 		
-		if (dao.delete(id)) {
+		if (dao.delete(deleteId)) {
 			tool.Logger.info("ユーザー削除に成功");
 			request.getRequestDispatcher("user_delete_done.jsp").forward(request, response);
 		} else {

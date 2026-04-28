@@ -56,6 +56,10 @@
         
         <p class="confirm-text">「${name}(${id})」を削除してもよろしいですか</p>
         
+        <c:if test="${not empty targetIsYourself}">
+        	${targetIsYourself}
+        </c:if>
+        
         <input type="submit" value="削除" name="delete" class="btn-danger">
     
     </form>
