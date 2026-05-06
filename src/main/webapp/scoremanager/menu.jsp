@@ -17,7 +17,7 @@
 		            <div class="d-flex flex-column align-items-center justify-content-center mb-4 p-4 rounded shadow"
 		                 style="height: 10rem; background-color: #f7c6c7;">
 		                <div><a href="StudentList.action">学生管理</a></div>
-		                <div><a href="StudentCsvUpload.action">CSV登録</a></div>
+		                <div><a href="StudentCsvUpload.action">CSV学生登録</a></div>
 		            </div>
 		        </div>
 		
@@ -46,7 +46,7 @@
 		                 style="height: 10rem; background-color: #d5e8d4;">
 		                <div>ユーザー管理</div>
 		                <div><a href="UserList.action">ユーザー登録</a></div>
-		                <div><a href="UserList.action">ユーザー更新</a></div>
+		                <div><a href="UserUpdate.action">ユーザー更新</a></div>
 		            </div>
 		        </div>
 		

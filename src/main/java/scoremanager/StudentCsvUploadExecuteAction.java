@@ -24,7 +24,7 @@ public class StudentCsvUploadExecuteAction extends Action {
         // ① JSP から送られてきた CSV ファイルを受け取る
         Part part = req.getPart("csvFile");			//partはファイルそのもの
         if (part == null || part.getSize() == 0){
-        	req.setAttribute("error_message", "ファイルが選択されていません。");
+        	req.setAttribute("error_message", "ファイルのアップロードに失敗しました。もう一度お試しください。");
         	req.getRequestDispatcher("/scoremanager/student_csv_upload.jsp").forward(req, res);
             return;
         }
@@ -33,9 +33,9 @@ public class StudentCsvUploadExecuteAction extends Action {
         // isはファイルの内容を読み込むためのバイトストリーム(データが順番に流れてくる通路)
         InputStream is = part.getInputStream();	
         
-        // InputStreamReader → バイト → 文字ストリームに変換（UTF-8）
+        // InputStreamReader → バイト → 文字ストリームに変換（UTF-8では文字化けしたのでMS932）
         // BufferedReader → 文字を「1 行ずつ」読み込める行ストリームに変換
-        BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(is,"MS932"));
         String line = br.readLine();
 
 	     // 1行目がヘッダーぽい場合は読み飛ばす
@@ -50,6 +50,11 @@ public class StudentCsvUploadExecuteAction extends Action {
         
 	    // ③ CSV の全行を読み込む
 	    List<StudentCsvUpload> csvList = new ArrayList<>();
+        List<Student> studentList = new ArrayList<>();
+        List<String> errorList = new ArrayList<>();
+        
+        int successCount = 0;
+        int errorCount = 0;
 	
 	    while (line != null) {
 	
@@ -58,11 +63,21 @@ public class StudentCsvUploadExecuteAction extends Action {
 	             line = br.readLine();
 	             continue;
 	         }	         
-		     // クォート除去（ 行全体の " をすべて削除 ）
-		     line = line.replace("\"", "").trim();
-	
+		     
 	         // カンマ区切りで分割
 	         String[] cols = line.split(",");
+	         
+	         // 列数チェック（6列固定）
+	         if (cols.length < 6) {
+	             errorList.add("CSV形式エラー（列数が不足しています）: " + line);
+	             line = br.readLine();
+	             continue;
+	         }
+	         
+		      // 各列の前後の空白とクォートを削除
+	         for (int i = 0; i < cols.length; i++) {
+	             cols[i] = cols[i].replace("\"", "").trim();
+	         }
 	
 	         // CSV → StudentCsvUpload（ 全部 String のまま ）
 	         StudentCsvUpload csv = new StudentCsvUpload();
@@ -84,22 +99,19 @@ public class StudentCsvUploadExecuteAction extends Action {
          StudentCsvUploadDao uploadDao = new StudentCsvUploadDao();
          SchoolDao schoolDao = new SchoolDao();
 
-         List<Student> studentList = new ArrayList<>();
-         List<String> errorList = new ArrayList<>();
-
          for (StudentCsvUpload csv : csvList) {
              try {
                  Student st = uploadDao.toStudent(csv, schoolDao);
                  studentList.add(st);
              } catch (Exception e) {
-                 errorList.add("学生番号 " + csv.getStudentNo() + " の行でエラー: " + e.getMessage());
+            	 errorCount++;
+            	 errorList.add("入力エラー（学生番号 " + csv.getStudentNo() + "）: " + e.getMessage());
+            	 continue; 
              }
          }
 
         // ⑤ StudentDao insertOrUpdate で DB 登録または更新
         StudentDao studentDao = new StudentDao();
-        int successCount = 0;
-        int errorCount = 0;
 
         for (Student st : studentList) {
             try {

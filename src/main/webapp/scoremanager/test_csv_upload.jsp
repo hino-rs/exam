@@ -9,7 +9,7 @@
 		
 		<!-- タイトル -->
 	    <h2 class="h4 mb-2" style="background-color:#f5f5f5; padding:10px 15px;">
-	    	成績CSVファイルアップロード
+	    	成績登録：CSVファイルアップロード
 	    </h2>
 		    
 		<!-- エラーメッセージ trueの時だけ表示 -->

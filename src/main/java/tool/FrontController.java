@@ -26,7 +26,12 @@ public class FrontController extends HttpServlet {
 			Action action=(Action)Class.forName(name).getDeclaredConstructor().newInstance();
 			action.execute(request, response);
 		} catch (Exception e) {
-			e.printStackTrace(out);
+			
+			// ログ
+            e.printStackTrace();
+            request.setAttribute("error_message", "エラーが発生しました。");
+         // "scoremanager." を追加
+            request.getRequestDispatcher("/scoremanager/error.jsp").forward(request, response);
 		}
 	}
 	

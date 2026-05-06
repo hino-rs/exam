@@ -22,7 +22,7 @@ public class TestCsvUploadExecuteAction  extends Action {	@Override	public vo
 		
 		if (part == null || part.getSize() == 0) {
 		    // エラー処理
-			req.setAttribute("error_message", "ファイルが選択されていません");
+			req.setAttribute("error_message", "ファイルのアップロードに失敗しました。もう一度お試しください。");
             req.getRequestDispatcher("/scoremanager/test_csv_upload.jsp").forward(req, res);
             return;
 		}
