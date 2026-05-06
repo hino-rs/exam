@@ -24,97 +24,89 @@ public class StudentListAction extends Action {
         HttpSession session = req.getSession();
         Teacher teacher = (Teacher)session.getAttribute("loginUser");
 
-        // 画面からの入力値（検索条件）
-        String entYearStr = "";
-        String classNum = "";
-        String isAttendStr = "";
-
         // 検索条件の実体
         int entYear = 0;
-        boolean isAttend = true;
-        
-
+        String classNum = "0";
+        Boolean isAttend = null; // null = 全件、true = 在学中のみ
         
         // 検索結果の学生一覧
         List<Student> students = null;
-
-        // 現在の西暦を取得（入学年度の選択肢）
-        LocalDate todaysDate = LocalDate.now();
-        int year = todaysDate.getYear();
-
-        // DAO の準備（必ず最初に宣言）
+        // DAO
         StudentDao sDao = new StudentDao();
         ClassNumDao cNumDao = new ClassNumDao();
 
         // クラス一覧（学校ごと）
         List<String> classNumList = cNumDao.filter(teacher.getSchool());
         req.setAttribute("class_num_set", classNumList);
-        
-        
 
-        // 回数一覧（1〜5）
-        List<Integer> numCountSet = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            numCountSet.add(i);
-        }
-        req.setAttribute("num_count_set", numCountSet);
-
-        // エラーメッセージ格納
-        Map<String, String> errors = new HashMap<>();
 
         // 画面から送られてきた検索条件を取得
-        entYearStr = req.getParameter("f1");
+        String entYearStr = req.getParameter("f1");
         classNum = req.getParameter("f2");
-        isAttendStr = req.getParameter("f3");
+        String isAttendStr = req.getParameter("f3");
         
-     // 入学年度の選択肢（現在の年から過去10年分）
+        // 入学年度の変換
+        if (entYearStr != null && !entYearStr.equals("0") && !entYearStr.isEmpty()) {
+            entYear = Integer.parseInt(entYearStr);
+        }
+        
+        // 入学年度の選択肢
+        LocalDate todaysDate = LocalDate.now();
+        int year = todaysDate.getYear();
+        
         List<Integer> entYearSet = new ArrayList<>();
-        for (int i = year - 10; i <= year; i++) {
+        for (int i = 2021; i <= year; i++) {
             entYearSet.add(i);
         }
         
-        if (entYearStr == null && classNum == null && isAttendStr == null) {
-        	 List<Student> all = new ArrayList<>();
-        	    all.addAll(sDao.filter(teacher.getSchool(), true));
-        	    all.addAll(sDao.filter(teacher.getSchool(), false));
-        	    students = all;
-        	    
-        	    req.setAttribute("students", students);       // 検索結果
-                req.setAttribute("ent_year_set", entYearSet); // 入学年度選択肢
-        	    
-        	    req.getRequestDispatcher("student_list.jsp").forward(req, res);
+        // 在学中チェック
+        if (isAttendStr != null) {
+            isAttend = true; // チェックあり → 在学中のみ
         } else {
-            isAttend = (isAttendStr != null);
+            isAttend = null; // チェックなし → 全件
         }
-        // 入学年度が指定されていれば数値に変換
-        if (entYearStr != null && !entYearStr.isEmpty()) {
-            entYear = Integer.parseInt(entYearStr);
-        }
-
-        
+                
+        // エラーメッセージ格納
+        Map<String, String> errors = new HashMap<>();        
 
         // 学生検索
         if (entYear != 0 && classNum != null && !classNum.equals("0")) {
             // 入学年度 + クラス指定あり
-            students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
+        	if (isAttendStr == null) {
+        		students = sDao.filter(teacher.getSchool(), entYear, classNum);
+        	} else {
+        		students = sDao.filter(teacher.getSchool(), entYear, classNum , true);
+        	}
 
         } else if (entYear != 0 && classNum.equals("0")) {
             // 入学年度のみ指定
-            students = sDao.filter(teacher.getSchool(), entYear, isAttend);
+        	if (isAttendStr == null) {
+        		students = sDao.filter(teacher.getSchool(), entYear);
+        	}else {
+				students = sDao.filter(teacher.getSchool(), entYear, true);
+			}
 
         } else if (entYear == 0 && (classNum == null || classNum.equals("0"))) {
             // 指定なし → 在学フラグのみで検索
-            students = sDao.filter(teacher.getSchool(), isAttend);
+        	if (isAttend == null) {
+        		students = sDao.filter(teacher.getSchool());
+        	}else {
+				students = sDao.filter(teacher.getSchool(), true);
+			}
 
         } else {
             // クラスだけ指定されている場合はエラー
             errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
             req.setAttribute("errors", errors);
-            students = sDao.filter(teacher.getSchool(), isAttend);
+            if (isAttend == null) {
+                students = sDao.filter(teacher.getSchool());
+            } else {
+                students = sDao.filter(teacher.getSchool(), true);
+            }
         }
 
         // 入学年度とクラス番号を画面に戻す
-        req.setAttribute("f1", entYear);
+        req.setAttribute("f1", entYearStr);
         req.setAttribute("f2", classNum);
         req.setAttribute("f3", isAttendStr);
         

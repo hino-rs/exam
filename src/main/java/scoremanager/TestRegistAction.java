@@ -63,11 +63,11 @@ public class TestRegistAction extends Action {
         }
         req.setAttribute("num_count_set", numCountSet);
 
-        // 入学年度一覧（現在の年から過去10年）
+        // 入学年度一覧
         LocalDate now = LocalDate.now();
         int year = now.getYear();
         List<Integer> entYearSet = new ArrayList<>();
-        for (int i = year - 10; i <= year; i++) {
+        for (int i = 2021; i <= year; i++) {
             entYearSet.add(i);
         }
         req.setAttribute("ent_year_set", entYearSet);

@@ -2,13 +2,16 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:import url="/common/base.jsp">
     <c:param name="title">
-        成績管理システム
+        エラーページ
     </c:param>
     <c:param name="scripts">
     </c:param>
     <c:param name="content">
 
-    <p>エラーが発生しました</p>
+    <p>${error_message}</p>
+    
+    
+    <a href="Menu.action">メニューへ戻る</a>
 
     </c:param>
 </c:import>

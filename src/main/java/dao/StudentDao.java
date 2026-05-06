@@ -280,4 +280,147 @@ public class StudentDao extends DAO {
 			return false;
 		}
 	}
+	
+	// ---------------------------------------------------------------------------------
+	//  追加 ： 学校のみで絞り込み（在学中フィルタなし・全件）
+	// ---------------------------------------------------------------------------------
+	public List<Student> filter(School school) throws Exception {
+	    List<Student> list = new ArrayList<>();
+	    Connection con = getConnection();
+	    PreparedStatement st = null;
+	    ResultSet rSet = null;
+	
+	    String sql = baseSql + " order by no asc";
+	
+	    try {
+	        st = con.prepareStatement(sql);
+	        st.setString(1, school.getCd());
+	
+	        rSet = st.executeQuery();
+	        list = postFilter(rSet, school);
+	
+	    } finally {
+	        if (st != null) st.close();
+	        if (con != null) con.close();
+	    }
+	
+	    return list;
+	}
+	
+	// ---------------------------------------------------------------------------------
+	//  追加 ： 学校 + 入学年度で絞り込み（在学中フィルタなし・全件）
+	// ---------------------------------------------------------------------------------
+	public List<Student> filter(School school, int entYear) throws Exception {
+	    List<Student> list = new ArrayList<>();
+	    Connection con = getConnection();
+	    PreparedStatement st = null;
+	    ResultSet rSet = null;
+	
+	    String sql = baseSql + "and ent_year=? order by no asc";
+	
+	    try {
+	        st = con.prepareStatement(sql);
+	        st.setString(1, school.getCd());
+	        st.setInt(2, entYear);
+	
+	        rSet = st.executeQuery();
+	        list = postFilter(rSet, school);
+	
+	    } finally {
+	        if (st != null) st.close();
+	        if (con != null) con.close();
+	    }
+	
+	    return list;
+	}
+	
+	// ---------------------------------------------------------------------------------
+	//  追加 ： 学校 + 入学年度 + クラスで絞り込み（在学中フィルタなし・全件）
+	// ---------------------------------------------------------------------------------
+	public List<Student> filter(School school, int entYear, String classNum) throws Exception {
+	    List<Student> list = new ArrayList<>();
+	    Connection con = getConnection();
+	    PreparedStatement st = null;
+	    ResultSet rSet = null;
+	
+	    String sql = baseSql + "and ent_year=? and class_num=? order by no asc";
+	
+	    try {
+	        st = con.prepareStatement(sql);
+	        st.setString(1, school.getCd());
+	        st.setInt(2, entYear);
+	        st.setString(3, classNum);
+	
+	        rSet = st.executeQuery();
+	        list = postFilter(rSet, school);
+	
+	    } finally {
+	        if (st != null) st.close();
+	        if (con != null) con.close();
+	    }
+	
+	    return list;
+	}
+	
+	// ---------------------------------------------------------------------------------
+	//  追加 ： 1 件の学生情報(Studentオブジェクト)を INSERT または UPDATE する
+	// ---------------------------------------------------------------------------------
+	public void insertOrUpdate(Student st) throws Exception {
+
+		Connection con = getConnection();
+		
+		//  学生番号（no）をキーとして既存データがあるか確認する
+		PreparedStatement ps = con.prepareStatement(
+	    		"SELECT no FROM student WHERE no = ?"
+	    	);
+		ps.setString(1, st.getNo());
+		
+		ResultSet rs = ps.executeQuery();
+		
+		Boolean exists = rs.next();
+		
+		if(exists) {
+			PreparedStatement psUpdate = con.prepareStatement(
+				"UPDATE student SET "
+				+ "name=?, "
+				+ "ent_year=?, "
+				+ "class_num=?, "
+				+ "is_attend=?, "
+				+ "school_cd=? "
+				+ "WHERE no=?"
+			);			
+     		psUpdate.setString(1, st.getName());
+     		psUpdate.setInt(2, st.getEntYear());
+     		psUpdate.setString(3, st.getClassNum());
+     		psUpdate.setBoolean(4, st.getAttend());
+     		psUpdate.setString(5, st.getSchool().getCd());
+     		psUpdate.setString(6, st.getNo());
+     		
+     		psUpdate.executeUpdate();
+     		
+		}else {
+			PreparedStatement psInsert = con.prepareStatement(
+				"INSERT INTO student ("
+				+ "no, "
+				+ "name, "
+				+ "ent_year, "
+				+ "class_num, "
+				+ "is_attend, "
+				+ "school_cd) "
+				+ "VALUES(?,?,?,?,?,?)"
+			);
+			psInsert.setString(1, st.getNo());
+			psInsert.setString(2, st.getName());
+			psInsert.setInt(3, st.getEntYear());
+			psInsert.setString(4, st.getClassNum());
+			psInsert.setBoolean(5, st.getAttend());
+			psInsert.setString(6, st.getSchool().getCd());
+			
+			psInsert.executeUpdate();			
+		}
+		
+    	rs.close();
+    	ps.close();
+    	con.close();	   
+	}
 }

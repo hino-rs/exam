@@ -8,6 +8,7 @@ public class TestListSubject implements java.io.Serializable {
 	private String studentName;
 	private String classNum;
 	private Map<Integer, Integer> points;
+    private String subjectName;			// 科目名 追加
 	
 	public int getEntYear() { return entYear; }
 	public void setEntYear(int entYear) { this.entYear=entYear; }
@@ -31,4 +32,8 @@ public class TestListSubject implements java.io.Serializable {
 	public void setPoint(int key, int value) {
 		getPoints().put(key, value);
 	}
+	
+    // 追加：科目名
+    public String getSubjectName() { return subjectName; }
+    public void setSubjectName(String subjectName) { this.subjectName = subjectName; }
 }
