@@ -41,8 +41,8 @@
             </button>
 
             <!-- メニューへ戻る -->
-            <a href="Menu.action" class="btn btn-outline-secondary ms-3 px-4">
-                メニューへ戻る
+            <a href="TestList.action" class="btn btn-outline-secondary ms-3 px-4">
+                成績参照へ
             </a>
 
         </form>
