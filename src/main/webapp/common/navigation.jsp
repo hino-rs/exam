@@ -32,6 +32,11 @@
                 <li style="margin-left: 15px; margin-bottom: 10px;">
                     <a href="TestList.action">成績参照</a>
                 </li>
+                
+                <!-- CSVアップロード -->
+                <li style="margin-left: 15px; margin-bottom: 10px;">
+                    <a href="TestCsvUpload.action">CSVアップロード</a>
+                </li>
 
                 <!-- 科目管理 -->
                 <li style="margin-bottom: 10px;">

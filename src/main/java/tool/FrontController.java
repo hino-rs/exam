@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;  // 追加：ファイルアップロード（multipart/form-data）を扱う
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns= {"*.action"})
+@MultipartConfig   // 追加：partを処理するためのアノテーション
 public class FrontController extends HttpServlet {
 	public void doPost(
 		HttpServletRequest request, HttpServletResponse response

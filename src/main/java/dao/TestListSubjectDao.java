@@ -67,9 +67,24 @@ public class TestListSubjectDao extends DAO {
 			t.setStudentNo(rs.getString("student_no"));
 			t.setStudentName(rs.getString("student_name"));
 			t.setClassNum(rs.getString("class_num"));
-			t.setPoints(map);
-			t.setPoint(1, rs.getInt("point1"));
-			t.setPoint(2, rs.getInt("point2"));
+			t.setPoints(map);			
+				
+			    int p1 = rs.getInt("point1");  // 1回目
+			    if (rs.wasNull()) {
+		        t.setPoint(1, -1); 			    // 未受験の場合は-1をセット
+			    } else {
+			        t.setPoint(1, p1);
+			    }			    
+			    int p2 = rs.getInt("point2");	// 2回目
+			    if (rs.wasNull()) {
+			        t.setPoint(2, -1); 			// 2回目がない場合も-1をセット
+			    } else {
+			        t.setPoint(2, p2);
+			    }
+
+		    t.setSubjectName(subject.getName()); // 科目名セット
+			
+			list.add(t);
 		}
 		
 		st.close();
