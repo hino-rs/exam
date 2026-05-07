@@ -25,7 +25,7 @@
 
                     <!-- ID（入力欄の左上に表示：floating label） -->
                     <div class='form-floating mb-3'>
-                        <input type='text' name='id' value='${id}'
+                        <input type='text' name='id' value='${idd}'
                                class='form-control'
                                style='background-color: #e8f4ff;'
                                id='idInput'
