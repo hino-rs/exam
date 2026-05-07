@@ -24,9 +24,9 @@ public class TestListAction extends Action {
         // 前回の検索結果をクリア
         session.removeAttribute("test_list");
 
-        // ログイン中の教師取得
+        // ログイン中の教師と学校情報取得
         Teacher teacher = (Teacher)session.getAttribute("loginUser");
-        School school = teacher.getSchool(); 
+        School school = (School)session.getAttribute("loginUserSchool");
 
         // パラメータ（selected 用）
         String f1 = req.getParameter("f1");
@@ -42,7 +42,7 @@ public class TestListAction extends Action {
         int year = now.getYear();
 
         List<Integer> entYearSet = new ArrayList<>();
-        for (int i = year - 10; i <= year; i++) {
+        for (int i = 2021; i <= year; i++) {
             entYearSet.add(i);
         }
         req.setAttribute("ent_year_set", entYearSet);

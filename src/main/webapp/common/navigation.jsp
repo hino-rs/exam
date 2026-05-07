@@ -17,7 +17,11 @@
                 <li style="margin-bottom: 10px;">
                     <a href="StudentList.action">学生管理</a>
                 </li>
-
+                
+                <li style="margin-left: 15px; margin-bottom: 5px;">
+                    <a href="StudentCsvUpload.action">CSV学生登録</a>
+                </li>
+                
                 <!-- 成績管理（ラベル） -->
                 <li style="margin-bottom: 5px; font-weight: bold;">
                     成績管理
@@ -31,6 +35,11 @@
                 <!-- 成績参照 -->
                 <li style="margin-left: 15px; margin-bottom: 10px;">
                     <a href="TestList.action">成績参照</a>
+                </li>
+                
+                <!-- CSVアップロード -->
+                <li style="margin-left: 15px; margin-bottom: 10px;">
+                    <a href="TestCsvUpload.action">CSV成績登録</a>
                 </li>
 
                 <!-- 科目管理 -->
