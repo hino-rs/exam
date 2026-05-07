@@ -57,11 +57,6 @@
                     <a href="UserList.action">ユーザー登録</a>
                 </li>
 
-                <!-- ユーザー更新 -->
-                <li style="margin-left: 15px; margin-bottom: 10px;">
-                    <a href="UserUpdate.action">ユーザー更新</a>
-                </li>
-
                 <!-- クラス管理 -->
                 <li style="margin-bottom: 10px;">
                     <a href="ClassNumList.action">クラス管理</a>
