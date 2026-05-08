@@ -27,4 +27,3 @@ public class ClassNumCreateAction extends Action {
 		request.getRequestDispatcher("class_num_create.jsp").forward(request, response);
 	}
 }
-
