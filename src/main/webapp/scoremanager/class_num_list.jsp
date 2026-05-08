@@ -75,7 +75,7 @@ a:hover {
     <h2 class="title">クラス管理</h2>
     
     <div class="link-container">
-        <a href="UserCreate.action">新規登録</a>
+        <a href="ClassNumCreate.action">新規登録</a>
     </div>
     
     <table>

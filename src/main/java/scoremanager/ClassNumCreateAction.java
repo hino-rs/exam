@@ -2,8 +2,7 @@ package scoremanager;
 
 import java.util.List;
 
-import bean.ClassNum;
-import dao.ClassNumDao;
+import dao.SchoolDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
@@ -16,11 +15,11 @@ public class ClassNumCreateAction extends Action {
 	) throws Exception {
 		tool.Logger.execute("UserCreateAction");
 		
-		List<ClassNum> class_num_all = null;
+		List<String> class_num_all = null;
 		
-		ClassNumDao dao = new ClassNumDao();
+		SchoolDao dao = new SchoolDao();
 		
-		class_num_all = dao.getAll();
+		class_num_all = dao.getAllSchoolCd();
 		
 		request.setAttribute("class_num_list", class_num_all);
 
