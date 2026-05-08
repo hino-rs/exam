@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ include file="/common/header.jsp" %>
+<c:import url="/common/base.jsp">
+    <c:param name="title">
+        得点管理システム
+    </c:param>
+    <c:param name="scripts">
 
-
-<h2>学生登録情報</h2>
-
+</c:param>
+    <c:param name="content">
+    
+    <h2 class="title">クラス管理</h2>
+    
 <form action="ClassNumCreateExecute.action" method="post">
 
 
@@ -12,13 +18,15 @@
 
     <label>新規クラス番号</label><br>
     <input type="text" name="class_num" value="${class_num}" maxlength="3" required placeholder="クラス番号を入力してください">
-
+    <c:if test='${not empty error2}'>
+        <p class='text-danger mt-1'>${error2}</p>
+    </c:if>
 	<br>
 
     <label>学校コード</label><br>
     <select name="school_cd">
-        <c:forEach var="cd" items="${school_cd}">
-        <option value="${cd}">${cd}</option>
+        <c:forEach var="c" items="${class_num_list}">
+        <option value="${c}">${c}</option>
     </c:forEach>
     </select>
 
@@ -29,6 +37,7 @@
 </form>
 
 
-<a href="ClassNumCreateExecute.action">戻る</a>
+<a href="ClassNumList.action">戻る</a>
 
-<%@ include file="/common/footer.jsp" %>
+	</c:param>
+</c:import>

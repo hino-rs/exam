@@ -71,27 +71,27 @@ input[type="text"]:focus {
     <c:param name="content">
 
     <h2 class="title">科目情報登録</h2>
-    
+
     <form action="SubjectCreateExecute.action" method="post">
-    
+
         <div class="form-group">
             <label for="cd">科目コード</label>
-            <input type="text" id="cd" name="cd" placeholder="科目コードを入力してください" required />
+            <input type="text" id="cd" name="cd" value="${cd}" placeholder="科目コードを入力してください" required　 value="科目コードを入力してください" maxlength="3" />
         </div>
-    
+
         <c:if test='${not empty error}'>
             <p class='text-danger text-center mb-3'>${error}</p>
         </c:if>
-    
+
         <div class="form-group">
             <label for="name">科目名</label>
-            <input type="text" id="name" name="name" placeholder="科目名を入力してください" required />
+            <input type="text" id="name" name="name" value="${name}" placeholder="科目名を入力してください" required value="科目名を入力してください" maxlength="20" />
         </div>
-    
+
         <input type="submit" value="登録" class="btn-submit">
-    
+
     </form>
-    
+
     <a href="SubjectList.action" class="back-link">戻る</a>
 
     </c:param>
