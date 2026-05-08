@@ -76,28 +76,28 @@ input[type="text"]:focus {
     <c:param name="content">
 
     <h2 class="title">科目情報変更</h2>
-    
+
     <form action="SubjectUpdateExecute.action" method="post">
-    
+
         <div class="form-group">
             <label>科目コード</label>
-            <div class="readonly-text"><c:out value="${cd}" /></div>
-            <input type="hidden" name="cd" value="${cd}">
+            <!--<div class="readonly-text"><c:out value="${cd}" /></div>-->
+            <input type="text" name="cd" value="${cd}" readonly >
         </div>
-        
+
         <c:if test='${not empty error}'>
             <p class='text-danger text-center mb-3'>${error}</p>
         </c:if>
-        
+
         <div class="form-group">
             <label>科目名</label>
-            <input type="text" name="name" value="${name}" required >
+            <input type="text" name="name" value="${name}" required maxlength="20" >
         </div>
-        
+
         <input type="submit" value="変更" class="btn-submit">
-    
+
     </form>
-    
+
     <a href="SubjectList.action" class="back-link">戻る</a>
 
     </c:param>
