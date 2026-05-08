@@ -22,6 +22,9 @@ public class SubjectCreateExecuteAction extends Action {
 		String name = request.getParameter("name");
 		School school = (School)session.getAttribute("loginUserSchool");
 		
+		request.setAttribute("cd", cd);
+		request.setAttribute("name", name);
+		
 		Subject subject = new Subject();
 		
 		subject.setCd(cd);

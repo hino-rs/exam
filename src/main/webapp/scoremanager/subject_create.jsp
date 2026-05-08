@@ -76,7 +76,7 @@ input[type="text"]:focus {
     
         <div class="form-group">
             <label for="cd">科目コード</label>
-            <input type="text" id="cd" name="cd" placeholder="科目コードを入力してください" required />
+            <input type="text" id="cd" name="cd" value="${cd}" placeholder="科目コードを入力してください" required />
         </div>
     
         <c:if test='${not empty error}'>
@@ -85,7 +85,7 @@ input[type="text"]:focus {
     
         <div class="form-group">
             <label for="name">科目名</label>
-            <input type="text" id="name" name="name" placeholder="科目名を入力してください" required />
+            <input type="text" id="name" name="name" value="${name}" placeholder="科目名を入力してください" required />
         </div>
     
         <input type="submit" value="登録" class="btn-submit">
