@@ -15,9 +15,9 @@
             <jsp:include page="/common/test_list_search.jsp" />
 
             <!-- 利用方法案内メッセージ -->
-            <div style="color:#33bbff; margin-top:0px;">
+            <p style="color:#33bbff; margin-top:0px;">
                 科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
-            </div>
+            </p>
 
         </section>
     </c:param>
