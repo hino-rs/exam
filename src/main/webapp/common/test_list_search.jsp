@@ -5,11 +5,13 @@
 
     <!-- 科目検索フォーム -->
     <form method="get" action="TestListSubjectExecute.action">
+    	<input type="hidden" name="f" value="sj">
+    	
         <div class="row">
 
             <!-- 左側タイトル -->
             <div class="col-auto d-flex" style="margin-top:25px;">
-                <div style="font-size:1rem;">科目情報</div>
+                <p style="font-size:1rem;">科目情報</p>
             </div>
 
             <!-- 入学年度・クラス・科目 -->
@@ -83,11 +85,13 @@
 
     <!-- 学生検索フォーム -->
     <form method="get" action="TestListStudentExecute.action">
+    	<input type="hidden" name="f" value="st">
+    	
         <div class="row">
 
             <!-- 左側タイトル -->
             <div class="col-auto d-flex align-items-center">
-                <div style="font-size:1rem;">学生情報</div>
+                <p style="font-size:1rem;">学生情報</p>
             </div>
 
             <!-- 学生番号 -->
@@ -96,9 +100,11 @@
 
                     <div class="col-auto">
                         <label class="form-label">学生番号</label>
-                        <input type="text" name="studentNo" value="${param.studentNo}"
+                        <input type="text" name="f4"
+   							   value="${f4}"
                                class="form-control" style="width:250px;"
                                placeholder="学生番号を入力してください"
+                               maxlength="10" 
                                required>
                     </div>
 

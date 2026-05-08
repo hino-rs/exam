@@ -116,6 +116,11 @@ public class TestRegistAction extends Action {
                         break;
                     }
                 }
+//                // 検索条件を初期化
+//                req.setAttribute("f1", null);
+//                req.setAttribute("f2", null);
+//                req.setAttribute("f3", null);
+//                req.setAttribute("f4", null);
             }
 
             // JSP へフォワード

@@ -22,7 +22,7 @@ public class TestListStudentExecuteAction extends Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         // 学生番号を取得
-        String studentNo = request.getParameter("studentNo");
+        String studentNo = request.getParameter("f4");
         
         // DAO 準備
         StudentDao sDao = new StudentDao();
@@ -60,6 +60,7 @@ public class TestListStudentExecuteAction extends Action {
         List<TestListStudent> list = tlsDao.filter(student);
 
         // JSP に渡す
+        request.setAttribute("f4", studentNo);
         request.setAttribute("student", student);
         request.setAttribute("list", list);
 
