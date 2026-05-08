@@ -35,7 +35,7 @@ public class LoginExecuteAction extends Action {
 			menu.execute(request, response);
 		} else {
 			tool.Logger.warn("ログイン失敗");
-			request.setAttribute("idd", id);
+			request.setAttribute("id", id);
 			request.setAttribute("errors", "IDまたはパスワードが確認できませんでした");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}

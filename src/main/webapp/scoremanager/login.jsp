@@ -5,59 +5,55 @@
     <c:param name="title" value="ログイン" />
 
     <c:param name="content">
-        <!-- ログインカード  -->
         <div class='card shadow-sm' style='max-width: 600px; margin: 40px auto; padding: 0;'>
 
-            <!-- タイトル部分（薄いグレー帯） -->
             <div style='background-color: #f0f0f0; padding: 15px;'>
                 <h2 class='text-center m-0'>ログイン</h2>
             </div>
 
-            <!-- 本文部分 -->
             <div class='p-4'>
 
-                <!-- エラー表示 -->
                 <c:if test='${not empty errors}'>
                     <p class='text-danger text-center mb-3'>${errors}</p>
                 </c:if>
 
                 <form action='LoginExecute.action' method='post'>
 
-                    <!-- ID（入力欄の左上に表示：floating label） -->
-                    <div class='form-floating mb-3'>
-                        <input type='text' name='id' value='${idd}'
+                    <div class='mb-3'>
+                        <label for='idInput' class='form-label' style='font-size: 0.85rem;'>ログインＩＤ</label>
+                        <input type='text' name='id' value='${id}'
                                class='form-control'
                                style='background-color: #e8f4ff;'
                                id='idInput'
-                               required maxlength='30'>
-                        <label for='idInput' style='font-size: 0.85rem;'>ID</label>
+                               placeholder='半角でご入力ください'
+                               required maxlength='10'>
                     </div>
 
-                    <div class='form-floating mb-3'>
+                    <div class='mb-3'>
+                        <label for='passwordInput' class='form-label' style='font-size: 0.85rem;'>パスワード</label>
                         <input type='password' name='password'
                                class='form-control'
                                style='background-color: #e8f4ff;'
                                id='passwordInput'
+                               placeholder='30文字以内の半角英数字でご入力ください'
                                required maxlength='30'>
-                        <label for='passwordInput' style='font-size: 0.85rem;'>パスワード</label>
                     </div>
 
-                    <!-- パスワード表示チェック -->
                     <div class='mb-3' style='text-align: center;'>
-                        <input type='checkbox' id='showPassword' class='form-check-input'>
-                        <label for='showPassword' class='form-check-label'>パスワードを表示</label>
+                        <input type='checkbox' name='chk_d_ps' id='chk_d_ps' class='form-check-input'>
+                        <label for='chk_d_ps' class='form-check-label'>パスワードを表示</label>
                     </div>
 
-                    <!-- ログインボタン -->
-                    <button type='submit' class='btn btn-primary w-100'>ログイン</button>
+                    <div class='mb-3'>
+                        <input type='submit' name='login' value='ログイン' class='btn btn-primary w-100'>
+                    </div>
 
                 </form>
             </div>
         </div>
 
-        <!-- パスワード表示スクリプト -->
         <script>
-            document.getElementById('showPassword').addEventListener('change', function() {
+            document.getElementById('chk_d_ps').addEventListener('change', function() {
                 const pw = document.getElementById('passwordInput');
                 pw.type = this.checked ? 'text' : 'password';
             });

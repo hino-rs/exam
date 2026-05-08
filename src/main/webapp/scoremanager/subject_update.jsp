@@ -85,9 +85,11 @@ input[type="text"]:focus {
             <input type="text" name="cd" value="${cd}" readonly >
         </div>
 
-        <c:if test='${not empty error}'>
-            <p class='text-danger text-center mb-3'>${error}</p>
-        </c:if>
+        <div>
+            <c:if test='${not empty error}'>
+                <p class='text-danger text-center mb-3'>${error}</p>
+            </c:if>
+        </div>
 
         <div class="form-group">
             <label>科目名</label>
