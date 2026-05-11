@@ -34,14 +34,18 @@
 </style>
     </c:param>
     <c:param name="content">
-
-    <h2 class="title">学生情報変更</h2>
-    
-    <div class="alert-success">
-        変更が完了しました
-    </div>
-    
-    <a href="StudentList.action" class="back-link">学生一覧</a>
-
+    	<section class="me-4">
+            <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">学生情報変更</h2>
+            
+			<p class="p-1 mb-4 text-center"
+			     style="background-color:#c8e6c9; border:1px solid #a5d6a7;">
+			    変更が完了しました
+			</p>
+			
+			<br><br>
+			
+			<a href="StudentList.action" class="back-link">学生一覧</a>
+	
+		</section>
     </c:param>
 </c:import>
