@@ -227,8 +227,6 @@ public class StudentDao extends DAO {
 	
 	// 追加・更新
 	public boolean save(Student student) throws Exception {
-		tool.Logger.dao("StudentDao save");
-		
 		Connection con = getConnection();		
 		PreparedStatement st = null;
 		int count = 0;
@@ -245,7 +243,6 @@ public class StudentDao extends DAO {
 				st.setBoolean(5, student.getAttend());
 				st.setString(6, student.getSchool().getCd());
 			} else {
-				tool.Logger.debug("student updateへ");
 				st = con.prepareStatement(
 					"update student set name=?, ent_year=?, class_num=?, is_attend=? where no=?");
 				st.setString(5, student.getNo());

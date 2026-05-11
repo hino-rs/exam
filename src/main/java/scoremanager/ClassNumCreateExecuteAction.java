@@ -13,14 +13,8 @@ public class ClassNumCreateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("ClassNumCreateExecute");
-		
-		
 		String classnum = request.getParameter("class_num");
 		String school_cd = request.getParameter("school_cd");
-		
-		
-		
 		
 		ClassNumDao cndao = new ClassNumDao();
 		School s = new School() ;
@@ -32,10 +26,10 @@ public class ClassNumCreateExecuteAction extends Action {
 			cnm.setSchool(s);
 			cndao.save(cnm);
 			request.getRequestDispatcher("class_num_create_done.jsp").forward(request, response);
-		} else {tool.Logger.error("クラス重複");
-		request.setAttribute("error2", "クラス番号が重複しています");
-		request.getRequestDispatcher("ClassNumCreate.action").forward(request, response);
-		return ;
+		} else {
+			request.setAttribute("error2", "クラス番号が重複しています");
+			request.getRequestDispatcher("ClassNumCreate.action").forward(request, response);
+			return ;
 		}
 	}
 }

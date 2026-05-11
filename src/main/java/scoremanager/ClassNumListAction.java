@@ -14,8 +14,6 @@ public class ClassNumListAction extends Action {
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
-		tool.Logger.execute("ClassNumListAction");
-		
 		List<ClassNum> class_num_all = null;
 		
 		ClassNumDao dao = new ClassNumDao();

@@ -10,8 +10,6 @@ public class SubjectCreateAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("SubjectCreateAction");
-		
 		request.getRequestDispatcher("subject_create.jsp").forward(request, response);
 	}
 }

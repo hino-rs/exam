@@ -22,8 +22,6 @@ public class TestListSubjectExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("TestListSubjectExecuteAction");
-		
 		HttpSession session = request.getSession();
 		
         // セッションに保存したログインユーザーの学校情報取得

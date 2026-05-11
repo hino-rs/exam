@@ -10,8 +10,6 @@ public class UserDeleteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserDeleteAction");
-		
 		String id = (String) request.getParameter("id");
 		String name = (String) request.getParameter("name");
 

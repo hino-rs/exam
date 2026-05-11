@@ -13,8 +13,6 @@ public class ClassNumCreateAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserCreateAction");
-		
 		List<String> class_num_all = null;
 		
 		SchoolDao dao = new SchoolDao();

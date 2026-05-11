@@ -14,8 +14,6 @@ public class SubjectDeleteExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("SubjectDeleteExecuteAction");
-		
 		HttpSession session = request.getSession();
 		
 		String cd = (String) request.getParameter("cd");
@@ -32,16 +30,13 @@ public class SubjectDeleteExecuteAction extends Action {
 		SubjectDao dao = new SubjectDao();
 		
 		if (dao.isUsed(s.getCd())) {
-			tool.Logger.warn("科目はテストで既に使われています。");
 			request.setAttribute("alreadyUsed", true);
 			request.setAttribute("name", name);
 			request.setAttribute("cd", cd);
 			request.getRequestDispatcher("subject_delete.jsp").forward(request, response);
 		} else if (dao.delete(s)) {
-			tool.Logger.info("科目削除に成功");
 			request.getRequestDispatcher("subject_delete_done.jsp").forward(request, response);
 		} else {
-			tool.Logger.error("科目削除に失敗");
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 	}

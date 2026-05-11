@@ -13,8 +13,6 @@ public class UserCreateAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserCreateAction");
-		
 		SchoolDao dao = new SchoolDao();
 	
 		List<String> schoolCodes = dao.getAllSchoolCd();

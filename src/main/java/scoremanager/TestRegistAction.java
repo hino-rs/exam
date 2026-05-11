@@ -20,10 +20,7 @@ public class TestRegistAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-
-        System.out.println(">> TestRegistAction");
-
-        HttpSession session = req.getSession();
+    	HttpSession session = req.getSession();
         
         // 前回の検索結果をクリア
         session.removeAttribute("test_list");

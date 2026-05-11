@@ -13,8 +13,6 @@ public class UserCreateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserCreateExecuteAction");
-		
 		Teacher t = new Teacher();
 		SchoolDao sDao = new SchoolDao();
 		
@@ -27,17 +25,14 @@ public class UserCreateExecuteAction extends Action {
 
 		// 重複チェック
 		if (!tDao.isUnique(t.getId())) {
-			tool.Logger.error("変更後のIDが重複");
 			request.setAttribute("error", "IDが重複しています");
 			request.getRequestDispatcher("UserCreate.action").forward(request, response);
 		}
 		
 		// 登録処理
 		if (tDao.create(t)) {
-			tool.Logger.info("ユーザー登録成功");
 			request.getRequestDispatcher("user_create_done.jsp").forward(request, response);
 		} else {
-			tool.Logger.error("ユーザー登録失敗");
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 	}

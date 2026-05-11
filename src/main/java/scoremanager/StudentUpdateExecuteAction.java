@@ -12,8 +12,6 @@ public class StudentUpdateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("StudentUpdateExecuteAction");
-		
 		int entYear = Integer.parseInt(request.getParameter("ent_year"));
 		String no = (String)request.getParameter("no");
 		String name = (String) request.getParameter("name");

@@ -44,8 +44,6 @@ public class TestListSubjectDao extends DAO {
 		Subject subject,
 		String schoolCd
 	) throws Exception {
-		tool.Logger.dao("TestListSubject filter");
-
 		TestListSubject  t = null;
 		List<TestListSubject> list = new ArrayList<>();
 		

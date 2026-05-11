@@ -14,8 +14,6 @@ public class SubjectUpdateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("SubjectUpdateExecuteAction");
-		
 		HttpSession session = request.getSession();
 		
 		String cd = (String) request.getParameter("cd");

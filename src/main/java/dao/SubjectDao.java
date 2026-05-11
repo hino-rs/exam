@@ -12,8 +12,6 @@ import bean.Subject;
 
 public class SubjectDao extends DAO {
 	public Subject get(String cd) throws Exception {
-		tool.Logger.dao("subject get");
-		
 		Subject s = null;
 		
 		Connection con = getConnection();
@@ -36,8 +34,6 @@ public class SubjectDao extends DAO {
 	}
 	
 	public List<Subject> filter(School school) throws Exception {
-		tool.Logger.dao("subject filter");
-		
 		Subject s = null;
 		List<Subject> list = new ArrayList<>();
 		
@@ -70,8 +66,6 @@ public class SubjectDao extends DAO {
 	}
 	
 	public boolean save(Subject subject) throws Exception {
-		tool.Logger.dao("subject save");
-		
 		School school = subject.getSchool();
 		String schoolCd = school.getCd();
 		String cd = subject.getCd();
@@ -142,8 +136,6 @@ public class SubjectDao extends DAO {
 	}
 	
 	public boolean delete(Subject subject) throws Exception {
-		tool.Logger.dao("subject delete");
-		
 		boolean result = false;
 		Connection con = getConnection();
 		PreparedStatement st;
@@ -163,8 +155,6 @@ public class SubjectDao extends DAO {
 	}
 	
 	public boolean isUsed(String cd) throws Exception {
-		tool.Logger.dao("subject isUsed");
-		
 		String sql = "SELECT TRUE FROM test WHERE subject_cd = ?";
 		
 		try (Connection con = getConnection();
