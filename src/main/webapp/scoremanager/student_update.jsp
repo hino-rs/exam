@@ -3,7 +3,7 @@
 
 <c:import url="/common/base.jsp">
     <c:param name="title">
-        成績管理システム
+        得点管理システム
     </c:param>
     <c:param name="scripts">
 <style>
@@ -92,13 +92,13 @@ input[type="text"]:focus, select:focus {
         <div class="form-group">
             <label>入学年度</label>
             <div class="readonly-text"><c:out value="${ent_year}" /></div>
-            <input type="hidden" name="ent_year" value="${ent_year}">
+            <input type="text" name="ent_year" value="${ent_year}" readonly>
         </div>
     
         <div class="form-group">
             <label>学生番号</label>
             <div class="readonly-text"><c:out value="${no}" /></div>
-            <input type="hidden" name="no" value="${no}">
+            <input type="text" name="no" value="${no}" readonly>
         </div>
     
         <div class="form-group">

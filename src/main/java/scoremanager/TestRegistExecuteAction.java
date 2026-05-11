@@ -33,12 +33,12 @@ public class TestRegistExecuteAction extends Action {
         	String paramName = "point_" + t.getStudent().getNo(); 
         	String pointStr = req.getParameter(paramName);
         	
-        	// 点数のバリデーション(未入力,0～100,数値チェック)
+        	// 点数のバリデーション(0～100,数値チェック)
         	if (pointStr == null || pointStr.isEmpty()){
-        		errorMap.put(t.getStudent().getNo(),"点数を入力してください");
+        		// 既存の点数が null の場合は "" にして JSP に返す
+        	    t.setPoint(null);
         		continue;
-        	}
-        	try {
+        	} try {
         		int point = Integer.parseInt(pointStr);
 				if (point < 0 || point > 100) {
 					errorMap.put(t.getStudent().getNo(),"点数は0～100の範囲で入力してください");

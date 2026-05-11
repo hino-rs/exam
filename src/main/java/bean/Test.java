@@ -9,7 +9,7 @@ public class Test implements Serializable {
     private Subject subject;   // 科目オブジェクト（bean.Subject）
     private School school;     // 学校オブジェクト
     private int no;            // 回数
-    private int point;         // 得点
+    private Integer point;     // プリミティブint から ラッパークラスInteger に変更         // 得点
 
     // 学生
     public Student getStudent() {
@@ -52,10 +52,11 @@ public class Test implements Serializable {
     }
 
     // 得点
-    public int getPoint() {
+    public Integer getPoint() {
         return point;
     }
-    public void setPoint(int point) {
+
+    public void setPoint(Integer point) {
         this.point = point;
     }
 }

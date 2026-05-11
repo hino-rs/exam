@@ -180,7 +180,12 @@ public class TestDao extends DAO {
             + "AND no = ?"
         );
 
-        st.setInt(1, test.getPoint());
+        // point の null 対応　setInt() は null を扱えないため setNull() を使用する
+        if (test.getPoint() == null) {
+            st.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            st.setInt(1, test.getPoint());
+        }
         st.setString(2, test.getStudent().getNo());
         st.setString(3, test.getSubject().getCd());
         st.setString(4, test.getSchool().getCd());
@@ -207,7 +212,12 @@ public class TestDao extends DAO {
             + "AND no = ?"
         );
 
-        st.setInt(1, test.getPoint());
+        // point の null 対応　setInt() は null を扱えないため setNull() を使用する
+        if (test.getPoint() == null) {
+            st.setNull(1, java.sql.Types.INTEGER);
+        } else {
+            st.setInt(1, test.getPoint());
+        }
         st.setString(2, test.getStudent().getNo());
         st.setString(3, test.getSubject().getCd());
         st.setString(4, test.getSchool().getCd());
@@ -279,7 +289,8 @@ public class TestDao extends DAO {
 
         // Test
         test.setNo(rs.getInt("no"));
-        test.setPoint(rs.getInt("point"));
+        Integer point = rs.getObject("point", Integer.class);
+        test.setPoint(point);
         test.setClassNum(rs.getString("class_num"));
 
         return test;

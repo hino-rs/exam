@@ -29,7 +29,7 @@ public class FrontController extends HttpServlet {
 			
 			// ログ
             e.printStackTrace();
-            request.setAttribute("error_message", "エラーが発生しました。");
+            request.setAttribute("error_message", "エラーが発生しました。\n" + e);
          // "scoremanager." を追加
             request.getRequestDispatcher("/scoremanager/error.jsp").forward(request, response);
 		}

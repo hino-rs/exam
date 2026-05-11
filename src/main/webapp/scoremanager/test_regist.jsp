@@ -53,7 +53,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f1-select">入学年度</label>
                         <select class="form-select" id="student-f1-select" name="f1">
-                            <option value="">--</option>
+                            <option value="">--------</option>
                     <c:forEach var="year" items="${ent_year_set}">
                         <option value="${year}" <c:if test="${year==f1}">selected</c:if>>
                             ${year}
@@ -66,7 +66,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f2-select">クラス</label>
                         <select class="form-select" id="student-f2-select" name="f2">
-                            <option value="">--</option>
+                            <option value="">--------</option>
                             <c:forEach var="num" items="${class_num_set}">
                                 <option value="${num}" <c:if test="${num == f2}">selected</c:if>>
                                     ${num}
@@ -79,7 +79,7 @@
                     <div class="col-4">
                         <label class="form-label" for="student-f3-select">科目</label>
                         <select class="form-select" id="student-f3-select" name="f3">
-                            <option value="">--</option>
+                            <option value="">--------</option>
                             <c:forEach var="subject" items="${school_subject_set}">
                                 <option value="${subject.cd}" <c:if test="${subject.cd == f3}">selected</c:if>>
                                     ${subject.name}
@@ -92,7 +92,7 @@
                     <div class="col-2">
                         <label class="form-label" for="student-f4-select">回数</label>
                         <select class="form-select" id="student-f4-select" name="f4">
-                            <option value="">--</option>
+                            <option value="">--------</option>
                             <c:forEach var="count" items="${num_count_set}">
                                 <option value="${count}" <c:if test="${count == f4}">selected</c:if>>
                                     ${count}
@@ -114,7 +114,7 @@
             
             	<form method="post" action="TestRegistExecute.action">
             	
-	                <div class="mt-4">科目：${subject_name}（${f4}回）</div>
+	                <div class="mt-4" role="label">科目：${subject_name}（${f4}回）</div>
 	
 	                <table class="table table-bordered mt-3 table-horizontal-only">
 	                    <thead>
@@ -139,6 +139,10 @@
 									           name="point_${t.student.no}"
 									           value="${t.point}"
 									           class="form-control score-input">
+									           
+							           <input type="hidden" name="regist" value="${t.student.no}">
+									   <input type="hidden" name="count" value="${f4}">
+									   <input type="hidden" name="subject" value="${f3}">
 									
 									    <!-- エラー表示 -->
 									    <c:if test="${not empty error_map[t.student.no]}">
