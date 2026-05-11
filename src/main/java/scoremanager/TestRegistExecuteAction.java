@@ -22,7 +22,8 @@ public class TestRegistExecuteAction extends Action {
         String f4 = req.getParameter("f4"); // 回数
     	        
         // セッションから test_list を取得(検索時に保存しておいた成績一覧)
-        List<Test> testList = (List<Test>) req.getSession().getAttribute("test_list");
+        @SuppressWarnings("unchecked")
+		List<Test> testList = (List<Test>) req.getSession().getAttribute("test_list");
         
         // 学生番号をキー、エラーメッセージを値とするマップ
         Map<String,String> errorMap = new HashMap<>(); 

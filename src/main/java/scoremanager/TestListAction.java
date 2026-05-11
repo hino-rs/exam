@@ -6,7 +6,6 @@ import java.util.List;
 
 import bean.School;
 import bean.Subject;
-import bean.Teacher;
 import dao.ClassNumDao;
 import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +24,7 @@ public class TestListAction extends Action {
         session.removeAttribute("test_list");
 
         // ログイン中の教師と学校情報取得
-        Teacher teacher = (Teacher)session.getAttribute("loginUser");
+//        Teacher teacher = (Teacher)session.getAttribute("loginUser");
         School school = (School)session.getAttribute("loginUserSchool");
 
         // パラメータ（selected 用）

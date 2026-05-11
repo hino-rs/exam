@@ -1,7 +1,6 @@
 package tool;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;  // 追加：ファイルアップロード（multipart/form-data）を扱う
@@ -16,7 +15,7 @@ public class FrontController extends HttpServlet {
 	public void doPost(
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
-		PrintWriter out=response.getWriter();
+//		PrintWriter out=response.getWriter();
 		try {
 			String path=request.getServletPath().substring(1);
 			
