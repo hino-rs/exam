@@ -81,6 +81,13 @@ input[type="text"]:focus, select:focus {
 .back-link:hover {
     text-decoration: underline;
 }
+
+input[readonly] {
+    border: none;
+    background-color: transparent;
+    padding-left: 0;
+}
+
 </style>
     </c:param>
     <c:param name="content">
@@ -91,13 +98,11 @@ input[type="text"]:focus, select:focus {
     
         <div class="form-group">
             <label>入学年度</label>
-            <div class="readonly-text"><c:out value="${ent_year}" /></div>
             <input type="text" name="ent_year" value="${ent_year}" readonly>
         </div>
     
         <div class="form-group">
-            <label>学生番号</label>
-            <div class="readonly-text"><c:out value="${no}" /></div>
+            <label>学生番号</label>            
             <input type="text" name="no" value="${no}" readonly>
         </div>
     
@@ -106,7 +111,7 @@ input[type="text"]:focus, select:focus {
             <input type="text" name="name" value="${name}" maxlength="30" required placeholder="氏名を入力してください">
         </div>
     
-        <div class="form-group">
+<%--         <div class="form-group">
             <label>クラス</label>
             <select name="class_num">
                 <option value="${class_num}" selected>${class_num}</option>
@@ -132,6 +137,22 @@ input[type="text"]:focus, select:focus {
                     <input type="checkbox" name="is_attend">
                 </c:otherwise>
             </c:choose>
+        </div> --%>
+        
+        <!-- クラス -->
+        <div class="form-group">
+            <label>クラス</label>
+            <select name="class_num">
+                <c:forEach var="cl" items="${class_list}">
+                    <option value="${cl}" <c:if test="${cl == class_num}">selected</c:if>>${cl}</option>
+                </c:forEach>
+            </select>
+        </div>
+        
+        <!-- 在学中 -->
+        <div class="checkbox-group">
+            <label>在学中</label>
+            <input type="checkbox" name="is_attend" <c:if test="${is_attend}">checked</c:if>>
         </div>
         
         <button type="submit" name="login" class="btn-submit">変更</button>
