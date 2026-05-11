@@ -6,6 +6,60 @@
     <c:param name="title">
         学生情報登録
     </c:param>
+    
+    <c:param name="scripts">
+<style>
+.form-group, .mb-3 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+input[type="text"], select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    outline: none;
+    font-size: 1em;
+    font-family: inherit;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #999;
+}
+
+.btn-submit, .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+.btn-submit:hover, .btn-secondary:hover {
+    background-color: #5c636a;
+}
+
+.back-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+</style>
+</c:param>    
 
     <c:param name="content">
         <section class="me-4">
@@ -15,7 +69,7 @@
                 <div class="mb-3">
                     <label class="form-label">入学年度</label>
                     <select class="form-select" id="student-f1-select" name="ent_year">
-                        <option value="0">--</option>
+                        <option value="0">--------</option>
                         <c:forEach var="year" items="${ent_year_set}">
                             <option value="${year}" <c:if test="${year==f1}">selected</c:if>>
                                 ${year}
@@ -50,7 +104,8 @@
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="btn btn-primary" name="end">登録して終了</button>
+                    <button type="submit" class="btn btn-secondary" name="end">登録して終了</button>
+                    
                 </div>
             </form>
 
