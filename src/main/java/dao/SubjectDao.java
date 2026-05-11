@@ -61,6 +61,14 @@ public class SubjectDao extends DAO {
 		return list;
 	}
 	
+	public boolean update(Subject subject) throws Exception {
+		if (get(subject.getCd()) == null) {
+			return false;
+		} else {
+			return save(subject);
+		}
+	}
+	
 	public boolean save(Subject subject) throws Exception {
 		tool.Logger.dao("subject save");
 		
