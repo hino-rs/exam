@@ -19,8 +19,8 @@ public class StudentDao extends DAO {
 			while (rSet.next()) {
 				Student s = new Student();
 				
-				s.setNo(rSet.getString("no"));
-				s.setName(rSet.getString("name"));
+				s.setNo(tool.Sanitaizer.sanitaizing((rSet.getString("no"))));
+				s.setName(tool.Sanitaizer.sanitaizing(rSet.getString("name")));
 				s.setEntYear(rSet.getInt("ent_year"));
 				s.setClassNum(rSet.getString("class_num"));
 				s.setAttend(rSet.getBoolean("is_attend"));

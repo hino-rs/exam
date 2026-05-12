@@ -47,7 +47,8 @@ public class SubjectDao extends DAO {
 		while (rs.next()) {
 			s = new Subject();
 			s.setCd(rs.getString("cd"));
-			s.setName(rs.getString("name"));
+			s.setName(tool.Sanitaizer.sanitaizing(rs.getString("name")));
+			
 			s.setSchool(new School());
 			list.add(s);
 		}
