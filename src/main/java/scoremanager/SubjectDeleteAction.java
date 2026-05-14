@@ -10,8 +10,6 @@ public class SubjectDeleteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("SubjectDeleteAction");
-		
 		String cd = (String) request.getParameter("cd");
 		String name = (String) request.getParameter("name");
 

@@ -10,8 +10,6 @@ public class UserPasswordUpdateAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserPasswordUpdateAction");
-		
 		String id = (String) request.getParameter("id");
 		request.setAttribute("id", id);
 		

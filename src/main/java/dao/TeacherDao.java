@@ -54,8 +54,6 @@ public class TeacherDao extends DAO {
 	}
 	
 	public List<Teacher> getAll() throws Exception {
-		tool.Logger.dao("teacher filter");
-		
 		Teacher t = null;
 		List<Teacher> list = new ArrayList<>();
 		
@@ -81,8 +79,6 @@ public class TeacherDao extends DAO {
 	}
 	
 	public boolean update(Teacher teacher) throws Exception {
-		tool.Logger.dao("teacher update");
-		
 		Connection con = getConnection();
 		PreparedStatement st;
 		
@@ -100,8 +96,6 @@ public class TeacherDao extends DAO {
 	}
 	
 	public boolean updatePassword(String id, String oldPassword, String newPassword) throws Exception {
-		tool.Logger.dao("teacher update password");
-		
 		Connection con = getConnection();
 		PreparedStatement st;
 		
@@ -124,8 +118,6 @@ public class TeacherDao extends DAO {
 	}
 	
 	public boolean delete(String id) throws Exception {
-		tool.Logger.dao("teacher delete");
-		
 		Connection con = getConnection();
 		PreparedStatement st;
 		
@@ -141,8 +133,6 @@ public class TeacherDao extends DAO {
 	}
 	
 	public boolean create(Teacher teacher) throws Exception {
-		tool.Logger.dao("teacher create");
-		
 		Connection con = getConnection();
 		PreparedStatement st;
 		
@@ -161,8 +151,6 @@ public class TeacherDao extends DAO {
 	}
 	
 	public boolean isUnique(String id) throws Exception {
-		tool.Logger.dao("teacher isUnique");
-		
 		Connection con = getConnection();
 		PreparedStatement st = null;
 		

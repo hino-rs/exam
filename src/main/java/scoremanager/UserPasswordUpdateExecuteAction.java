@@ -11,13 +11,10 @@ public class UserPasswordUpdateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserPasswordUpdateExecuteAction");
-		
 		String id = (String) request.getParameter("id");
 		String oldPassword = (String) request.getParameter("old_password");
 		String newPassword = (String) request.getParameter("new_password");
 		
-		tool.Logger.debug(id+" "+oldPassword+" "+newPassword);
 		
 		TeacherDao tDao = new TeacherDao();
 		if (tDao.updatePassword(id, oldPassword, newPassword)) {

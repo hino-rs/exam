@@ -103,8 +103,6 @@ public class ClassNumDao extends DAO {
     }
     
     public List<ClassNum> getAll() throws Exception {
-		tool.Logger.dao("ClassNum getAll");
-		
 		ClassNum c = null;
 		List<ClassNum> list = new ArrayList<>();
 		
@@ -129,8 +127,6 @@ public class ClassNumDao extends DAO {
 	}
     
     public boolean create(ClassNum classnum) throws Exception {
-		tool.Logger.dao("ClassNum create");
-		
 		Connection con = getConnection();
 		PreparedStatement st;
 		
@@ -147,8 +143,6 @@ public class ClassNumDao extends DAO {
 	}
     
     public boolean update(ClassNum classnum) throws Exception {
-		tool.Logger.dao("classnum update");
-		
 		Connection con = getConnection();
 		PreparedStatement st;
 		

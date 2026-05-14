@@ -14,8 +14,6 @@ public class UserListAction extends Action {
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
-		tool.Logger.execute("UserListAction");
-		
 		List<Teacher> teachers = null;
 		
 		TeacherDao dao = new TeacherDao();

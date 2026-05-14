@@ -16,8 +16,6 @@ public class SubjectListAction extends Action {
 	public void execute(
 		HttpServletRequest req, HttpServletResponse res
 	) throws Exception {
-		tool.Logger.execute("SubjectListAction");
-		
 		HttpSession session = req.getSession();
 		
 		School loginUserSchool = (School)session.getAttribute("loginUserSchool");

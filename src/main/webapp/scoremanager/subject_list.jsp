@@ -36,11 +36,11 @@ th, td {
     align-items: center;
 }
 
-.operate form:first-of-type {
+.operate a:first-of-type {
     margin-left: auto;
 }
 
-.operate form {
+.operate a {
     margin-left: 30px;
 }
 
@@ -51,7 +51,7 @@ th, td {
     outline: none;
     padding: 0;
     appearance: none;
-    
+
     color: #0066cc;
     font-size: 1em;
 }
@@ -71,13 +71,13 @@ a:hover {
 </style>
     </c:param>
     <c:param name="content">
-    
+
     <h2 class="title">科目管理</h2>
-    
+
     <div class="link-container">
         <a href="SubjectCreate.action">新規登録</a>
     </div>
-    
+
     <table>
         <thead>
             <tr>
@@ -91,16 +91,8 @@ a:hover {
                     <td>${s.cd}</td>
                     <td class="operate">
                         ${s.name}
-                        <form action="SubjectUpdate.action" method="post">
-                            <input type="hidden" name="cd" value="${s.cd}">
-                            <input type="hidden" name="name" value="${s.name}">
-                            <input type="submit" value="変更" class="btn-submit">
-                        </form>
-                        <form action="SubjectDelete.action" method="post">
-                            <input type="hidden" name="cd" value="${s.cd}">
-                            <input type="hidden" name="name" value="${s.name}">
-                            <input type="submit" value="削除" class="btn-submit">
-                        </form>
+                        <a href="SubjectUpdate.action?cd=${s.cd}&name=${s.name}" class="btn-submit">変更</a>
+                        <a href="SubjectDelete.action?cd=${s.cd}&name=${s.name}" class="btn-submit">削除</a>
                     </td>
                 </tr>
             </c:forEach>

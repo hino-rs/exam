@@ -13,8 +13,6 @@ public class UserUpdateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserUpdateExecuteAction");
-		
 		String id = (String) request.getParameter("id");
 		String name = (String) request.getParameter("name");
 		String schoolCd = (String) request.getParameter("school_cd");

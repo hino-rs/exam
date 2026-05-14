@@ -8,7 +8,6 @@ import bean.School;
 import bean.Subject;
 import bean.TestListSubject;
 import dao.ClassNumDao;
-import dao.StudentDao;
 import dao.SubjectDao;
 import dao.TestListSubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,15 +21,13 @@ public class TestListSubjectExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("TestListSubjectExecuteAction");
-		
 		HttpSession session = request.getSession();
 		
         // セッションに保存したログインユーザーの学校情報取得
         School school = (School)session.getAttribute("loginUserSchool");
 		
         // プルダウン用 DAO
-        StudentDao stuDao = new StudentDao();
+//        StudentDao stuDao = new StudentDao();
         ClassNumDao cDao = new ClassNumDao();
         SubjectDao subDao = new SubjectDao();
         TestListSubjectDao tDao = new TestListSubjectDao();

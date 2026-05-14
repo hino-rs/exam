@@ -24,7 +24,6 @@ public class LoginFilter implements Filter {
 		HttpSession session = req.getSession();
 		
 		String path = req.getRequestURI().substring(req.getContextPath().length());
-		tool.Logger.debug(path);
 		
 		if (path.contains("css") || path.contains("/LoginExecute") || path.contains("login.jsp")) {
 	        chain.doFilter(req, res);

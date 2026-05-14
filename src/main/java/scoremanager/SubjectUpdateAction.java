@@ -10,8 +10,6 @@ public class SubjectUpdateAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("SubjectUpdateAction");
-		
 		String cd = (String) request.getParameter("cd");
 		String name = (String) request.getParameter("name");
 

@@ -55,7 +55,7 @@ public class StudentListAction extends Action {
         int year = todaysDate.getYear();
         
         List<Integer> entYearSet = new ArrayList<>();
-        for (int i = 2021; i <= year; i++) {
+        for (int i = year - 10; i <= year; i++) {
             entYearSet.add(i);
         }
         
@@ -98,7 +98,7 @@ public class StudentListAction extends Action {
             // クラスだけ指定されている場合はエラー
             errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
             req.setAttribute("errors", errors);
-            if (isAttend == null) {
+            if (isAttend == false) {
                 students = sDao.filter(teacher.getSchool());
             } else {
                 students = sDao.filter(teacher.getSchool(), true);

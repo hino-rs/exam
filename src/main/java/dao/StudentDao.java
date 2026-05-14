@@ -19,8 +19,8 @@ public class StudentDao extends DAO {
 			while (rSet.next()) {
 				Student s = new Student();
 				
-				s.setNo(rSet.getString("no"));
-				s.setName(rSet.getString("name"));
+				s.setNo(tool.Sanitaizer.sanitaizing((rSet.getString("no"))));
+				s.setName(tool.Sanitaizer.sanitaizing(rSet.getString("name")));
 				s.setEntYear(rSet.getInt("ent_year"));
 				s.setClassNum(rSet.getString("class_num"));
 				s.setAttend(rSet.getBoolean("is_attend"));
@@ -227,8 +227,6 @@ public class StudentDao extends DAO {
 	
 	// 追加・更新
 	public boolean save(Student student) throws Exception {
-		tool.Logger.dao("StudentDao save");
-		
 		Connection con = getConnection();		
 		PreparedStatement st = null;
 		int count = 0;
@@ -245,7 +243,6 @@ public class StudentDao extends DAO {
 				st.setBoolean(5, student.getAttend());
 				st.setString(6, student.getSchool().getCd());
 			} else {
-				tool.Logger.debug("student updateへ");
 				st = con.prepareStatement(
 					"update student set name=?, ent_year=?, class_num=?, is_attend=? where no=?");
 				st.setString(5, student.getNo());

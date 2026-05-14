@@ -18,8 +18,6 @@ public class StudentUpdateAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("StudentUpdateAction");
-		
 		List<String> list = new ArrayList<>();
 		
 		HttpSession session = request.getSession();

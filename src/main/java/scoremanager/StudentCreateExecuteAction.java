@@ -14,8 +14,6 @@ public class StudentCreateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("StudentCreateExecute");
-		
 		HttpSession session = request.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("loginUser");
 		
@@ -24,11 +22,7 @@ public class StudentCreateExecuteAction extends Action {
 		String name = request.getParameter("name");
 		String classnum = request.getParameter("class_num");
 		
-		
-		
-		
 		if (entyear == null || "".equals(entyear) || "0".equals(entyear)) {
-			tool.Logger.error("入学年度が未入力: "+entyear);
 			request.setAttribute("error1", "入学年度を選択してください");
 			request.setAttribute("no", no);
             request.setAttribute("name", name);
@@ -58,7 +52,7 @@ public class StudentCreateExecuteAction extends Action {
 			student.setSchool(teacher.getSchool());
 			dao.save(student);
 			request.getRequestDispatcher("student_create_done.jsp").forward(request, response);
-		} else {tool.Logger.error("学生番号重複");
+		} else {
 		request.setAttribute("error2", "学生番号が重複しています");
 		request.getRequestDispatcher("StudentCreate.action").forward(request, response);
 		return ;

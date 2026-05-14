@@ -13,7 +13,6 @@ public class UserDeleteExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("UserDeleteExecuteAction");
 		HttpSession session = request.getSession();
 		Teacher loginUser = (Teacher) session.getAttribute("loginUser");
 		
@@ -26,10 +25,8 @@ public class UserDeleteExecuteAction extends Action {
 			request.setAttribute("targetIsYourself", "あなた自身を消すことはできません");
 			request.getRequestDispatcher("user_delete.jsp").forward(request, response);
 		} else if (dao.delete(deleteId)) {
-			tool.Logger.info("ユーザー削除に成功");
 			request.getRequestDispatcher("user_delete_done.jsp").forward(request, response);
 		} else {
-			tool.Logger.error("ユーザー削除に失敗");
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
 	}

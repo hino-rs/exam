@@ -20,10 +20,7 @@ public class TestRegistAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-
-        System.out.println(">> TestRegistAction");
-
-        HttpSession session = req.getSession();
+    	HttpSession session = req.getSession();
         
         // 前回の検索結果をクリア
         session.removeAttribute("test_list");
@@ -116,6 +113,11 @@ public class TestRegistAction extends Action {
                         break;
                     }
                 }
+//                // 検索条件を初期化
+//                req.setAttribute("f1", null);
+//                req.setAttribute("f2", null);
+//                req.setAttribute("f3", null);
+//                req.setAttribute("f4", null);
             }
 
             // JSP へフォワード

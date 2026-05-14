@@ -13,8 +13,6 @@ public class LoginExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		System.out.println("\u001b[00;36m"+"LoginExecuteAction"+"\u001b[00m");
-		
 		HttpSession session=request.getSession();
 
 		String id = request.getParameter("id");
@@ -24,8 +22,6 @@ public class LoginExecuteAction extends Action {
 		Object loginData = dao.login(id, password);
 
 		if (loginData != null) {
-			tool.Logger.info("ログイン成功");
-
 			Teacher teacher = (Teacher)loginData;
 			session.setAttribute("loginUser", teacher);
 			session.setAttribute("loginUserName", teacher.getName());
@@ -34,8 +30,7 @@ public class LoginExecuteAction extends Action {
 			MenuAction menu = new MenuAction();
 			menu.execute(request, response);
 		} else {
-			tool.Logger.warn("ログイン失敗");
-			request.setAttribute("idd", id);
+			request.setAttribute("id", id);
 			request.setAttribute("errors", "IDまたはパスワードが確認できませんでした");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}

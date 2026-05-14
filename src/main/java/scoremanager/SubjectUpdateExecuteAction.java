@@ -14,8 +14,6 @@ public class SubjectUpdateExecuteAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		tool.Logger.execute("SubjectUpdateExecuteAction");
-		
 		HttpSession session = request.getSession();
 		
 		String cd = (String) request.getParameter("cd");
@@ -29,9 +27,11 @@ public class SubjectUpdateExecuteAction extends Action {
 		subject.setSchool(school);
 		
 		SubjectDao dao = new SubjectDao();
-		if (dao.save(subject)) {
+		if (dao.update(subject)) {
 			request.getRequestDispatcher("subject_update_done.jsp").forward(request, response);
 		} else {
+			request.setAttribute("cd", cd);
+			request.setAttribute("name", name);
 			request.setAttribute("error", "科目が存在していません");
 			request.getRequestDispatcher("subject_update.jsp").forward(request, response);
 		}
