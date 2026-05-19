@@ -27,7 +27,7 @@ public class StudentListAction extends Action {
         // 検索条件の実体
         int entYear = 0;
         String classNum = "0";
-        Boolean isAttend = null; // null = 全件、true = 在学中のみ
+        Boolean isAttend = false; // null = 全件、true = 在学中のみ
         
         // 検索結果の学生一覧
         List<Student> students = null;
@@ -63,7 +63,7 @@ public class StudentListAction extends Action {
         if (isAttendStr != null) {
             isAttend = true; // チェックあり → 在学中のみ
         } else {
-            isAttend = null; // チェックなし → 全件
+            isAttend = false; // チェックなし → 全件
         }
                 
         // エラーメッセージ格納
@@ -88,7 +88,7 @@ public class StudentListAction extends Action {
 
         } else if (entYear == 0 && (classNum == null || classNum.equals("0"))) {
             // 指定なし → 在学フラグのみで検索
-        	if (isAttend == null) {
+        	if (!isAttend) {
         		students = sDao.filter(teacher.getSchool());
         	}else {
 				students = sDao.filter(teacher.getSchool(), true);
