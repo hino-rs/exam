@@ -295,4 +295,24 @@ public class TestDao extends DAO {
 
         return test;
     }
+    
+    // ------------------------------------------------------------
+    //  テスト登録件数のカウント
+    // ------------------------------------------------------------
+    
+    public int countByClass(String school_cd, String class_num) throws Exception {
+        String sql = "SELECT COUNT(*) FROM test WHERE school_cd = ? AND class_num = ?";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, school_cd);
+            ps.setString(2, class_num);
+
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }
+    }
+
+  
 }
