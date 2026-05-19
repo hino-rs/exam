@@ -278,9 +278,9 @@ public class StudentDao extends DAO {
 		}
 	}
 	
-	// ---------------------------------------------------------------------------------
-	//  追加 ： 学校のみで絞り込み（在学中フィルタなし・全件）
-	// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+//  追加 ： 学校のみで絞り込み（在学中フィルタなし・全件）
+// ---------------------------------------------------------------------------------
 	public List<Student> filter(School school) throws Exception {
 	    List<Student> list = new ArrayList<>();
 	    Connection con = getConnection();
@@ -304,9 +304,9 @@ public class StudentDao extends DAO {
 	    return list;
 	}
 	
-	// ---------------------------------------------------------------------------------
-	//  追加 ： 学校 + 入学年度で絞り込み（在学中フィルタなし・全件）
-	// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+//  追加 ： 学校 + 入学年度で絞り込み（在学中フィルタなし・全件）
+// ---------------------------------------------------------------------------------
 	public List<Student> filter(School school, int entYear) throws Exception {
 	    List<Student> list = new ArrayList<>();
 	    Connection con = getConnection();
@@ -331,9 +331,9 @@ public class StudentDao extends DAO {
 	    return list;
 	}
 	
-	// ---------------------------------------------------------------------------------
-	//  追加 ： 学校 + 入学年度 + クラスで絞り込み（在学中フィルタなし・全件）
-	// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+//  追加 ： 学校 + 入学年度 + クラスで絞り込み（在学中フィルタなし・全件）
+// ---------------------------------------------------------------------------------
 	public List<Student> filter(School school, int entYear, String classNum) throws Exception {
 	    List<Student> list = new ArrayList<>();
 	    Connection con = getConnection();
@@ -359,9 +359,9 @@ public class StudentDao extends DAO {
 	    return list;
 	}
 	
-	// ---------------------------------------------------------------------------------
-	//  追加 ： 1 件の学生情報(Studentオブジェクト)を INSERT または UPDATE する
-	// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
+//  追加 ： 1 件の学生情報(Studentオブジェクト)を INSERT または UPDATE する
+// ---------------------------------------------------------------------------------
 	public void insertOrUpdate(Student st) throws Exception {
 
 		Connection con = getConnection();
@@ -420,4 +420,22 @@ public class StudentDao extends DAO {
     	ps.close();
     	con.close();	   
 	}
+	
+// ---------------------------------------------------------------------------------
+//  追加 ： 学生登録件数のカウント
+// ---------------------------------------------------------------------------------
+	public int countByClass(String school_cd, String class_num) throws Exception {
+	    String sql = "SELECT COUNT(*) FROM student WHERE school_cd = ? AND class_num = ?";
+	    try (Connection con = getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+
+	        ps.setString(1, school_cd);
+	        ps.setString(2, class_num);
+
+	        ResultSet rs = ps.executeQuery();
+	        rs.next();
+	        return rs.getInt(1);
+	    }
+	}
+
 }

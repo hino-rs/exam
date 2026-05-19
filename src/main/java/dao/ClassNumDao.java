@@ -126,35 +126,154 @@ public class ClassNumDao extends DAO {
 		return list;
 	}
     
-    public boolean create(ClassNum classnum) throws Exception {
-		Connection con = getConnection();
-		PreparedStatement st;
-		
-		st = con.prepareStatement("INSERT INTO class_num VALUES(?,?,?,?)");
-		st.setString(1, classnum.getClass_num());
-		st.setString(2, classnum.getSchool().getCd());
-		
-		int result = st.executeUpdate();
-		
-		st.close();
-		con.close();
-		
-		return result == 1;
-	}
+//    public boolean create(ClassNum classnum) throws Exception {
+//		Connection con = getConnection();
+//		PreparedStatement st;
+//		
+//		st = con.prepareStatement("INSERT INTO class_num VALUES(?,?,?,?)");
+//		st.setString(1, classnum.getClass_num());
+//		st.setString(2, classnum.getSchool().getCd());
+//		
+//		int result = st.executeUpdate();
+//		
+//		st.close();
+//		con.close();
+//		
+//		return result == 1;
+//	}
+//    
+//    public boolean update(ClassNum classnum) throws Exception {
+//		Connection con = getConnection();
+//		PreparedStatement st;
+//		
+//		st = con.prepareStatement("UPDATE class_num SET class_num=? WHERE class_num=? and school_cd=?");
+//		st.setString(1, classnum.getClass_num());
+//		st.setString(2, classnum.getSchool().getCd());
+//		
+//		int result = st.executeUpdate();
+//
+//        st.close();
+//        con.close();
+//
+//        return result == 1;	}
     
-    public boolean update(ClassNum classnum) throws Exception {
-		Connection con = getConnection();
-		PreparedStatement st;
-		
-		st = con.prepareStatement("UPDATE class_num SET class_num=? WHERE class_num=? and school_cd=?");
-		st.setString(1, classnum.getClass_num());
-		st.setString(2, classnum.getSchool().getCd());
-		
-		int result = st.executeUpdate();
+
+//---------------------------------------------------------------------------------
+//  追加 ： クラスの削除　delete(String classNum, School school) 
+//          School オブジェクトを持っている場合に使用
+// ---------------------------------------------------------------------------------
+    public boolean delete(String classNum, School school) throws Exception {
+
+        Connection con = getConnection();
+
+        PreparedStatement st = con.prepareStatement(
+            "DELETE FROM class_num WHERE class_num = ? AND school_cd = ?"
+        );
+
+        st.setString(1, classNum);
+        st.setString(2, school.getCd());
+
+        int result = st.executeUpdate();
 
         st.close();
         con.close();
 
         return result == 1;
+    }
+    
+ // ------------------------------------------------------------
+ //  追加 ： クラスの削除delete(String school_cd, String class_num)
+ // （ClassNumDeleteExecuteAction 用 オーバーロード）School オブジェクトを持っていないとき
+ // ------------------------------------------------------------
+	 public boolean delete(String school_cd, String class_num) throws Exception {
+	
+	     Connection con = getConnection();
+	
+	     PreparedStatement st = con.prepareStatement(
+	         "DELETE FROM class_num WHERE class_num = ? AND school_cd = ?"
+	     );
+	
+	     // class_num と school_cd をそのまま SQL にセット
+	     st.setString(1, class_num);
+	     st.setString(2, school_cd);
+	
+	     int result = st.executeUpdate();
+	
+	     st.close();
+	     con.close();
+	
+	     // 1件削除できたら true を返す
+	     return result == 1;
+	 }    
+	 
+// ------------------------------------------------------------
+// 追加：ClassNum オブジェクトを受け取って削除する delete
+// ------------------------------------------------------------
+	public boolean delete(ClassNum cn) throws Exception {
+
+	    Connection con = getConnection();
+
+	    PreparedStatement st = con.prepareStatement(
+	        "DELETE FROM class_num WHERE class_num = ? AND school_cd = ?"
+	    );
+
+	    st.setString(1, cn.getClass_num());
+	    st.setString(2, cn.getSchool().getCd());
+
+	    int result = st.executeUpdate();
+
+	    st.close();
+	    con.close();
+
+	    return result == 1;
+	}	 
+	 
+// ------------------------------------------------------------
+//  追加 ： 指定クラスに学生が存在するかチェック
+// ------------------------------------------------------------
+	public boolean hasStudents(String class_num, School school) throws Exception {
+
+	    Connection con = getConnection();
+	    PreparedStatement st = con.prepareStatement(
+	        "SELECT COUNT(*) FROM student WHERE class_num = ? AND school_cd = ?"
+	    );
+
+	    st.setString(1, class_num);
+	    st.setString(2, school.getCd());
+
+	    ResultSet rs = st.executeQuery();
+	    rs.next();
+	    int count = rs.getInt(1);
+
+	    rs.close();
+	    st.close();
+	    con.close();
+
+	    return count > 0;
 	}
+
+// ------------------------------------------------------------
+//  追加 ： 指定クラスにテスト結果が存在するかチェック
+// ------------------------------------------------------------
+	public boolean hasScores(String class_num, School school) throws Exception {
+
+	    Connection con = getConnection();
+	    PreparedStatement st = con.prepareStatement(
+	        "SELECT COUNT(*) FROM TEST WHERE class_num = ? AND school_cd = ?"
+	    );
+
+	    st.setString(1, class_num);
+	    st.setString(2, school.getCd());
+
+	    ResultSet rs = st.executeQuery();
+	    rs.next();
+	    int count = rs.getInt(1);
+
+	    rs.close();
+	    st.close();
+	    con.close();
+
+	    return count > 0;
+	}
+
 }
