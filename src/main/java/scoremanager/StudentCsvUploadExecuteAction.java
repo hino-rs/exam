@@ -35,7 +35,7 @@ public class StudentCsvUploadExecuteAction extends Action {
         
         // InputStreamReader → バイト → 文字ストリームに変換（UTF-8では文字化けしたのでMS932）
         // BufferedReader → 文字を「1 行ずつ」読み込める行ストリームに変換
-        BufferedReader br = new BufferedReader(new InputStreamReader(is,"MS932"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));
         String line = br.readLine();
 
 	     // 1行目がヘッダーぽい場合は読み飛ばす
@@ -64,6 +64,8 @@ public class StudentCsvUploadExecuteAction extends Action {
 	             continue;
 	         }	         
 		     
+	         System.out.println(line);
+	         
 	         // カンマ区切りで分割
 	         String[] cols = line.split(",");
 	         
