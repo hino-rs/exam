@@ -16,7 +16,6 @@ public class StudentCreateAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		HttpSession session = request.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("loginUser");
 		String entYearStr = "";
@@ -40,7 +39,5 @@ public class StudentCreateAction extends Action {
 		request.setAttribute("ent_year_set", entYearSet);
 		request.setAttribute("f1", entYear);
 		request.getRequestDispatcher("student_create.jsp").forward(request, response);
-		
-		
         }
 	}
